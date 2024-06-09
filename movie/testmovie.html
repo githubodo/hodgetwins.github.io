@@ -2,46 +2,26 @@
     window.Hydro_tagId = "22b56330-c4ae-4476-9bd2-4d9c9edb3137";
   </script>
   <script id="hydro_script" src="https://track.hydro.online/"></script>
-<script type="text/javascript" src="//embed.vemba.io/jwplayercustom/jwplayer-7.11.0/jwplayer.js"></script>
-<div id='myElement'>Loading the player...</div>
-<script type='text/javascript'>
-  jwplayer.key= "JTGE07Ok+RFyC39Hbk/0sU5pENovRRZIhEzX9Q==";
-</script>
-<script type='text/javascript'>
-  this.player = jwplayer("myElement");
-  this.player.setup({
-    "preload": "auto",
-    "hlshtml": true,
-    "autostart": "true",
-    "primary": "html5",
-    "mute": false,
-    "height": "360",
-    "width": "100%",
-    "displaydescription": true,
-    "file": "https://stream.hownetwork.xyz/yyy/doleira-a-historia-de-nelma-kodama-2024-webdl_X_efffad70/22/480.m3u8",
-    "title": "The Sahara desert was covered in over a foot of snow",
-    "displaytitle": true,
-    "type": "hls",
-    
-    "plugins": {
-    "//seccdn-gl.imrworldwide.com/novms/jw/ggjw510.js": {
-        "apid": "P45D58435-8587-4B0B-B2FA-2BE7F4AF883E",
-            "sfcode": "dcr",
-            "nsdkv": "511",
-            "apn": "Vemba",
-            "stream_custom_params": {
-            "type": "content",
-                "assetid": 17410774,
-                
-                "crossId2": "Vice",
-                "adloadtype": "2",
-                "hasAds": "0"
-        }
-    }
-},
-    "id": "vemba_player_EvpUz"
-});
-  var plugin = this.player.getPlugin();
-  console.log('plugin:',plugin)
-  
+<script src="https://ssl.p.jwpcdn.com/player/v/8.22.0/jwplayer.js"></script>
+<div id="player"></div>
+<script>
+  var jwp = jwplayer('player');
+  jwp.setup({
+    width: "100%",
+    title: "Valerian ve Bin Gezegen İmparatorluğu",
+    height: "100%",
+    key: "cLGMn8T20tGvW+0eXPhq4NNmLB57TrscPjd1IyJF84o=",
+    sources: [
+      {file: "https://www.googleapis.com/drive/v3/files/1sbPMgFuUBm_tC6ppgOawAYO4ozB5Pvt6?alt=media&key=AIzaSyDrQ86QJRiJlyPcLFYdxT22_oC2H1verR4",  type:"mp4",label:"480p", default: "true"},
+      {file: "https://cdn.fluidplayer.com/videos/valerian-720p.mkv",  type:"mp4", label:"720p"},
+      {file: "https://cdn.fluidplayer.com/videos/valerian-1080p.mkv", type:"mp4", label:"1080p"}
+    ],
+    image: "https://cdn-w1.netlify.com/cagatayldzz.com/2020/pbgRkz.jpg",
+    sharing: {
+      heading: "Paylas",
+      link: "link-url",
+      sites:["facebook","twitter","googleplus","tumblr","pinterest","reddit","linkedin","email"]
+    },
+    primary: "html5"
+  });
 </script>
