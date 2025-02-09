@@ -4,7 +4,7 @@
 $title = "Moko IPTV Player - IPTV Video Streaming Website";
 
 //Site URL
-$site_url = "https://projects.nodetent.com/mokoiptv/";
+$site_url = "https://www.tvmalaysia.live/mokoiptv/";
 
 //Site Description
 $description = "";
@@ -19,11 +19,11 @@ $watermarkLink = "";
 $gaCode = "UA-69771681-1";
 
 //Preroll Ads Video (.mp4)
-$prerollAds = "https://cdn.jsdelivr.net/gh/mokoshalb/clappr-ads/edumail.mp4";
+$prerollAds = "";
 
 //Preroll Ads Time (seconds)
-$prerollTime = 5;
+$prerollTime = 0;
 
 //Preroll Ads External Link
-$prerollLink = "http://www.mokoshalb.com/buy-edu-mail/";
+$prerollLink = "";
 ?>
