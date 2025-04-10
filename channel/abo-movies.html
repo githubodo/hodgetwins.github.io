@@ -81,12 +81,21 @@
 <div class="separator" style="clear: both;"><a href="#" style="display: block; padding: 1em 0; text-align: center; "><img alt="" border="0" width="50" data-original-height="244" data-original-width="499" src="https://www.tvmalaysia.live/images/astro-abo-live-streaming-online.webp"/></a></div>
 </center>
 
+<center>
+  <div id="channel-list">Loading channel list...</div>
+</center>
+
+<script>
 fetch("https://api.npoint.io/42ec6ec5b5c92e25f36f")
   .then(res => res.json())
   .then(data => {
     document.getElementById("channel-list").innerHTML = data.html;
+  })
+  .catch(err => {
+    console.error("Gagal load senarai channel:", err);
+    document.getElementById("channel-list").innerText = "Gagal memuatkan saluran.";
   });
-
+</script>
 
 
 <script src="/js/anti_copy.js"></script>
