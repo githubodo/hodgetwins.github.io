@@ -76,23 +76,26 @@
 </script>
 <br />
 
-<div id="epg-now">Loading program...</div>
+<div id="epg-now" style="font-size: 16px; font-weight: bold; margin-top: 1em;">
+  Memuatkan maklumat siaran Astro Ria...
+</div>
 
 <script>
-fetch("https://fullmovie.my/astro-ria-epg.json")
+fetch("https://tvmalaysia.pythonanywhere.com/astro-ria-epg.json")
   .then(res => res.json())
   .then(data => {
     document.getElementById("epg-now").innerHTML = `
       📺 <strong>${data.channel}</strong><br>
       🟢 Sekarang: <b>${data.now.title}</b> (${data.now.time})<br>
       🔜 Lepas ni: ${data.next.title} (${data.next.time})<br>
-      <small>Update: ${data.updated}</small>
+      <small style="font-size: 12px; color: gray;">Update: ${data.updated}</small>
     `;
   })
   .catch(() => {
-    document.getElementById("epg-now").innerText = "EPG unavailable now.";
+    document.getElementById("epg-now").innerText = "Gagal muatkan EPG Astro Ria.";
   });
 </script>
+
 
 <script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=6631b8f57464820019156342&product=sop' async='async'></script>
 <!-- ShareThis BEGIN --><div class="sharethis-inline-share-buttons"></div><!-- ShareThis END -->
