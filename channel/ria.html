@@ -76,23 +76,22 @@
 </script>
 <br />
 
-<div id="epg-now" style="font-size: 16px; font-weight: bold; margin-top: 1em;">
-  Memuatkan maklumat siaran Astro Ria...
-</div>
+<h2>📅 Jadual Siaran Astro Ria Minggu Ini</h2>
+<ul id="weekly-epg" style="font-size: 14px;"></ul>
 
 <script>
-fetch("https://www.tvmalaysia.live/epg/astro-ria-epg.json")
+fetch("https://www.tvmalaysia.live/epg/astro-ria-weekly.json")
   .then(res => res.json())
   .then(data => {
-    document.getElementById("epg-now").innerHTML = `
-      📺 <strong>${data.channel}</strong><br>
-      🟢 Sekarang: <b>${data.now.title}</b> (${data.now.time})<br>
-      🔜 Lepas ni: ${data.next.title} (${data.next.time})<br>
-      <small style="font-size: 12px; color: gray;">Update: ${data.updated}</small>
-    `;
+    const ul = document.getElementById("weekly-epg");
+    data.programs.forEach(p => {
+      const li = document.createElement("li");
+      li.innerText = `${p.start} - ${p.end} ➜ ${p.title}`;
+      ul.appendChild(li);
+    });
   })
   .catch(() => {
-    document.getElementById("epg-now").innerText = "Gagal muatkan EPG Astro Ria.";
+    document.getElementById("weekly-epg").innerText = "Tak dapat muatkan jadual penuh.";
   });
 </script>
 
