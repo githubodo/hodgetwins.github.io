@@ -1,20 +1,20 @@
-const CACHE_NAME = 'tvmalaysia-v3'; // update version bila ada perubahan
-const PRECACHE_URLS = [
-  '/',
-  '/index.html',
-  '/favicon.ico',
-  '/js/anti_copy.js',
+const CACHE_NAME = 'tvmalaysia-v4'; // update version bila edit
+const EXCLUDE_STREAM_KEYWORDS = [
+  '.m3u8', '.mpd', '.ts', '.php?id=', '/stream', '/live/', 'dp.sooka.my', 'streamproxy'
 ];
 
-// Install: cache essential files
+// ✅ Auto-cache everything (except stream)
 self.addEventListener('install', event => {
   self.skipWaiting();
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(PRECACHE_URLS))
+    caches.open(CACHE_NAME).then(cache => cache.addAll([
+      '/', '/index.html', '/favicon.ico', '/js/anti_copy.js'
+      // tak perlu list semua — nanti cache waktu runtime
+    ]))
   );
 });
 
-// Activate: delete old versions
+// 🧹 Cleanup old caches
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(keys =>
@@ -25,37 +25,28 @@ self.addEventListener('activate', event => {
   );
 });
 
-// Fetch: smart runtime cache + exclude live stream
+// ⚡ Smart cache everything except live stream
 self.addEventListener('fetch', event => {
   const req = event.request;
-
-  // ❌ Skip if not GET or matches stream/video patterns
   const url = req.url;
+
+  // ❌ Skip stream content
   if (
     req.method !== 'GET' ||
-    url.endsWith('.m3u8') ||
-    url.endsWith('.mpd') ||
-    url.endsWith('.ts') ||
-    url.includes('/stream') ||
-    url.includes('.php?id=') ||
-    url.includes('/live/') ||
-    url.includes('dp.sooka.my') ||
-    url.includes('tvmalaysia.website') // kalau guna proxy video
+    EXCLUDE_STREAM_KEYWORDS.some(keyword => url.includes(keyword))
   ) {
-    return; // bypass caching
+    return;
   }
 
   event.respondWith(
-    caches.match(req).then(cachedRes => {
-      if (cachedRes) return cachedRes;
+    caches.match(req).then(cached => {
+      if (cached) return cached;
 
-      return fetch(req).then(fetchRes => {
-        const resClone = fetchRes.clone();
+      return fetch(req).then(res => {
+        const resClone = res.clone();
         caches.open(CACHE_NAME).then(cache => cache.put(req, resClone));
-        return fetchRes;
-      }).catch(() => {
-        return caches.match('/offline.html'); // optional fallback
-      });
+        return res;
+      }).catch(() => caches.match('/offline.html')); // optional fallback
     })
   );
 });
