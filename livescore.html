@@ -51,45 +51,59 @@
   <script>
     async function loadLiveScores() {
       const container = document.getElementById('score-container');
+      container.innerHTML = '<p>Loading matches...</p>';
+      const today = new Date().toISOString().split('T')[0];
+
       try {
-        const response = await fetch("https://livescore-proxy.vercel.app/api/score");
-        const data = await response.json();
+        const response = await fetch(`https://api-football-v1.p.rapidapi.com/v3/fixtures?date=${today}`, {
+          method: 'GET',
+          headers: {
+            'X-RapidAPI-Key': '8ac3f1ac09msh95a06fdbe65a016p1aa66fjsn8de911f5b565',
+            'X-RapidAPI-Host': 'api-football-v1.p.rapidapi.com'
+          }
+        });
+
+        const result = await response.json();
+        const data = result.response;
 
         container.innerHTML = '';
 
-        if (!data.events || data.events.length === 0) {
+        if (!data || data.length === 0) {
           container.innerHTML = '<p>No matches today.</p>';
           return;
         }
 
-        data.events.forEach(match => {
+        data.forEach(match => {
           const matchDiv = document.createElement('div');
           matchDiv.className = 'match';
 
           const teamsHTML = `
             <div class="teams">
-              <span>${match.strHomeTeam}</span>
-              <strong>${match.intHomeScore ?? '-'} : ${match.intAwayScore ?? '-'}</strong>
-              <span>${match.strAwayTeam}</span>
+              <span>${match.teams.home.name}</span>
+              <strong>${match.goals.home ?? '-'} : ${match.goals.away ?? '-'}</strong>
+              <span>${match.teams.away.name}</span>
             </div>
           `;
 
-          const status = match.strStatus || 'Scheduled';
-          const time = match.strTime || 'TBD';
-          const statusHTML = `<div class="status">⏰ ${time} | ${status}</div>`;
+          const status = match.fixture.status.short;
+          const time = match.fixture.status.elapsed ? `${match.fixture.status.elapsed}'` : match.fixture.date.split('T')[1].substring(0,5);
+
+          const statusText = status === 'FT' ? 'Full Time' : status === 'NS' ? 'Scheduled' : status === '1H' || status === '2H' ? 'Live' : status;
+
+          const statusHTML = `<div class="status">⏰ ${time} | ${statusText}</div>`;
 
           matchDiv.innerHTML = teamsHTML + statusHTML;
           container.appendChild(matchDiv);
         });
 
-      } catch (err) {
+      } catch (error) {
         container.innerHTML = '<p>Error loading scores. Please try again later.</p>';
-        console.error(err);
+        console.error(error);
       }
     }
 
     loadLiveScores();
-    setInterval(loadLiveScores, 60000); // refresh setiap 60s
+    setInterval(loadLiveScores, 60000); // refresh every 60s
   </script>
 </body>
 </html>
