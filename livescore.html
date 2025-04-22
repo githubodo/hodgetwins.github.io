@@ -23,6 +23,12 @@
       max-width: 800px;
       margin: auto;
     }
+    .section-title {
+      font-size: 1.2rem;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      color: #ffcc00;
+    }
     .match {
       border: 1px solid #444;
       padding: 1rem;
@@ -33,7 +39,18 @@
     .match .teams {
       display: flex;
       justify-content: space-between;
-      font-size: 1.2rem;
+      align-items: center;
+      font-size: 1.1rem;
+    }
+    .team-logo {
+      height: 24px;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+    .team-name {
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
     .match .status {
       margin-top: 0.5rem;
@@ -68,33 +85,39 @@
 
         container.innerHTML = '';
 
-        if (!data || data.length === 0) {
-          container.innerHTML = '<p>No matches today.</p>';
-          return;
-        }
+        const liveMatches = [];
+        const upcomingMatches = [];
 
         data.forEach(match => {
-          const matchDiv = document.createElement('div');
-          matchDiv.className = 'match';
-
-          const teamsHTML = `
-            <div class="teams">
-              <span>${match.teams.home.name}</span>
-              <strong>${match.goals.home ?? '-'} : ${match.goals.away ?? '-'}</strong>
-              <span>${match.teams.away.name}</span>
-            </div>
-          `;
-
           const status = match.fixture.status.short;
-          const time = match.fixture.status.elapsed ? `${match.fixture.status.elapsed}'` : match.fixture.date.split('T')[1].substring(0,5);
-
-          const statusText = status === 'FT' ? 'Full Time' : status === 'NS' ? 'Scheduled' : status === '1H' || status === '2H' ? 'Live' : status;
-
-          const statusHTML = `<div class="status">⏰ ${time} | ${statusText}</div>`;
-
-          matchDiv.innerHTML = teamsHTML + statusHTML;
-          container.appendChild(matchDiv);
+          if (status === '1H' || status === '2H' || status === 'LIVE') {
+            liveMatches.push(match);
+          } else if (status === 'NS') {
+            upcomingMatches.push(match);
+          }
         });
+
+        if (liveMatches.length > 0) {
+          const liveTitle = document.createElement('div');
+          liveTitle.className = 'section-title';
+          liveTitle.textContent = '🔴 LIVE Matches';
+          container.appendChild(liveTitle);
+
+          liveMatches.forEach(match => container.appendChild(renderMatch(match, true)));
+        }
+
+        if (upcomingMatches.length > 0) {
+          const upcomingTitle = document.createElement('div');
+          upcomingTitle.className = 'section-title';
+          upcomingTitle.textContent = '🕓 Upcoming Matches';
+          container.appendChild(upcomingTitle);
+
+          upcomingMatches.forEach(match => container.appendChild(renderMatch(match, false)));
+        }
+
+        if (liveMatches.length === 0 && upcomingMatches.length === 0) {
+          container.innerHTML = '<p>No live or upcoming matches today.</p>';
+        }
 
       } catch (error) {
         container.innerHTML = '<p>Error loading scores. Please try again later.</p>';
@@ -102,8 +125,45 @@
       }
     }
 
+    function renderMatch(match, isLive) {
+      const matchDiv = document.createElement('div');
+      matchDiv.className = 'match';
+
+      const homeTeam = match.teams.home;
+      const awayTeam = match.teams.away;
+      const homeLogo = `<img src="${homeTeam.logo}" class="team-logo">`;
+      const awayLogo = `<img src="${awayTeam.logo}" class="team-logo">`;
+      const homeScore = match.goals.home ?? '-';
+      const awayScore = match.goals.away ?? '-';
+
+      const teamsHTML = `
+        <div class="teams">
+          <span class="team-name">${homeLogo}${homeTeam.name}</span>
+          <strong>${homeScore} : ${awayScore}</strong>
+          <span class="team-name">${awayLogo}${awayTeam.name}</span>
+        </div>
+      `;
+
+      let statusHTML = '';
+      if (isLive) {
+        const time = match.fixture.status.elapsed ?? '?';
+        statusHTML = `<div class="status">⏱️ ${time}' | LIVE</div>`;
+      } else {
+        const start = new Date(match.fixture.date);
+        const now = new Date();
+        const diff = Math.max(0, start - now);
+        const minutes = Math.floor(diff / 60000);
+        const hours = Math.floor(minutes / 60);
+        const mins = minutes % 60;
+        statusHTML = `<div class="status">⏳ Starts in ${hours}h ${mins}m</div>`;
+      }
+
+      matchDiv.innerHTML = teamsHTML + statusHTML;
+      return matchDiv;
+    }
+
     loadLiveScores();
-    setInterval(loadLiveScores, 60000); // refresh every 60s
+    setInterval(loadLiveScores, 60000);
   </script>
 </body>
 </html>
