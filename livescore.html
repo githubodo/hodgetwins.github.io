@@ -52,13 +52,12 @@
     async function loadLiveScores() {
       const container = document.getElementById('score-container');
       try {
-        const url = "https://www.thesportsdb.com/api/v1/json/3/eventsday.php?d=today&s=Soccer";
-        const response = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`);
-        const data = await response.json(); // ✅ Tak perlu parse lagi
+        const response = await fetch("https://livescore-proxy.vercel.app/api/score");
+        const data = await response.json();
 
         container.innerHTML = '';
 
-        if (!data.events) {
+        if (!data.events || data.events.length === 0) {
           container.innerHTML = '<p>No matches today.</p>';
           return;
         }
@@ -90,7 +89,7 @@
     }
 
     loadLiveScores();
-    setInterval(loadLiveScores, 60000); // auto refresh setiap 60 saat
+    setInterval(loadLiveScores, 60000); // refresh setiap 60s
   </script>
 </body>
 </html>
