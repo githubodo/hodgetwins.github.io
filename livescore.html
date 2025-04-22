@@ -52,8 +52,11 @@
     async function loadLiveScores() {
       const container = document.getElementById('score-container');
       try {
-        const response = await fetch('https://www.thesportsdb.com/api/v1/json/3/eventsday.php?d=today&s=Soccer');
-        const data = await response.json();
+        const url = "https://www.thesportsdb.com/api/v1/json/3/eventsday.php?d=today&s=Soccer";
+        const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`);
+        const json = await response.json();
+        const data = JSON.parse(json.contents);
+
         container.innerHTML = '';
 
         if (!data.events) {
@@ -81,6 +84,7 @@
           matchDiv.innerHTML = teamsHTML + statusHTML;
           container.appendChild(matchDiv);
         });
+
       } catch (err) {
         container.innerHTML = '<p>Error loading scores. Please try again later.</p>';
         console.error(err);
