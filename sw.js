@@ -1,6 +1,6 @@
-const CACHE_NAME = 'tvmalaysia-v5'; // update version bila edit
+const CACHE_NAME = 'tvmalaysia-v6'; // update version bila edit
 const EXCLUDE_STREAM_KEYWORDS = [
-  '.m3u8', '.mpd', '.ts', '.php?id=', '/stream', '/live/', 'dp.sooka.my', 'streamproxy'
+  '.m3u8', '.mpd', '.ts', '.php?id=', '/stream', '/live/', 'dp.sooka.my', 'forknspoon.geekgalaxy.com'
 ];
 
 // ✅ Auto-cache everything (except stream)
