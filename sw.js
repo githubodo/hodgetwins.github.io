@@ -1,4 +1,4 @@
-const CACHE_NAME = 'tvmalaysia-v4'; // update version bila edit
+const CACHE_NAME = 'tvmalaysia-v5'; // update version bila edit
 const EXCLUDE_STREAM_KEYWORDS = [
   '.m3u8', '.mpd', '.ts', '.php?id=', '/stream', '/live/', 'dp.sooka.my', 'streamproxy'
 ];
