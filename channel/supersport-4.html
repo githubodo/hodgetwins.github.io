@@ -13,7 +13,27 @@
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3274439619257410"
      crossorigin="anonymous"></script>
 <script async src="https://fundingchoicesmessages.google.com/i/pub-3274439619257410?ers=1"></script><script>(function() {function signalGooglefcPresent() {if (!window.frames['googlefcPresent']) {if (document.body) {const iframe = document.createElement('iframe'); iframe.style = 'width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;'; iframe.style.display = 'none'; iframe.name = 'googlefcPresent'; document.body.appendChild(iframe);} else {setTimeout(signalGooglefcPresent, 0);}}}signalGooglefcPresent();})();</script>
-<script>(function(s,u,z,p){s.src=u,s.setAttribute('data-zone',z),p.appendChild(s);})(document.createElement('script'),'https://jouwaikekaivep.net/tag.min.js',7337458,document.body||document.documentElement)</script>
+<!-- Popup Shopee -->
+<div id="shopee-popup" style="display:none; position:fixed; top:30%; left:50%; transform:translate(-50%, -50%); background:#fff; border:2px solid #f60; padding:20px; border-radius:10px; z-index:9999; box-shadow:0 0 15px rgba(0,0,0,0.3); max-width:300px; text-align:center;">
+  <h3 style="margin-top:0;">🔥 Promo Menarik di Shopee!</h3>
+  <p>Jom shopping! Klik link di bawah:</p>
+  <a href="https://s.shopee.com.my/5KyzirTsvo" target="_blank" style="display:inline-block; margin-top:10px; background:#f60; color:#fff; padding:10px 20px; border-radius:5px; text-decoration:none;">Buka Shopee</a>
+  <br><br>
+  <button onclick="document.getElementById('shopee-popup').style.display='none'" style="margin-top:10px;">Tutup</button>
+</div>
+
+<script>
+document.addEventListener("click", function () {
+  const popupKey = "shopee_popup_last_shown";
+  const now = Date.now();
+  const lastShown = localStorage.getItem(popupKey);
+
+  if (!lastShown || now - parseInt(lastShown) > 3 * 60 * 60 * 1000) {
+    document.getElementById("shopee-popup").style.display = "block";
+    localStorage.setItem(popupKey, now);
+  }
+}, { once: true });
+</script>
 <title>Astro Supersport 4 - TV Malaysia Live Online</title>
 <meta content='width=device-width, initial-scale=1, maximum-scale=5' name='viewport'/>
 <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
