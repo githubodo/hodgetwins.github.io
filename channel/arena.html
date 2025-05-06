@@ -71,94 +71,12 @@
                     loading="lazy"
                 ></iframe>
             </div>
-            <!-- CSS untuk banner -->
-<style>
-.scroll-banner {
-  display: flex;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  gap: 10px;
-  padding: 10px;
-}
-.scroll-banner::-webkit-scrollbar {
-  display: none;
-}
-.product-box {
-  flex: 0 0 auto;
-  width: 140px;
-  border: 1px solid #eee;
-  border-radius: 8px;
-  overflow: hidden;
-  background: #fff;
-  scroll-snap-align: start;
-  text-align: center;
-  font-family: sans-serif;
-}
-.product-box img {
-  width: 100%;
-  height: auto;
-}
-.product-title {
-  font-size: 14px;
-  padding: 5px 4px;
-  height: 40px;
-  overflow: hidden;
-}
-.product-price {
-  font-weight: bold;
-  color: red;
-  font-size: 14px;
-}
-.product-discount {
-  background: #ff3c3c;
-  color: white;
-  font-size: 12px;
-  padding: 2px 6px;
-  border-radius: 0 0 0 6px;
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-.product-container {
-  position: relative;
-}
-</style>
-
-<!-- Tempat untuk produk -->
-<div id="shopeeBanner" class="scroll-banner"></div>
-
-<!-- Script ambil data dari Npoint dan inject -->
-<script>
-fetch("https://api.npoint.io/8b84b0d1f459579908f9") // GANTI dgn link betul
-  .then(res => res.json())
-  .then(products => {
-    const banner = document.getElementById("shopeeBanner");
-    if (!banner) return;
-
-    // Shuffle array
-    for (let i = products.length - 1; i > 0; i--) {
-      let j = Math.floor(Math.random() * (i + 1));
-      [products[i], products[j]] = [products[j], products[i]];
-    }
-
-    products.forEach(p => {
-      const item = document.createElement("a");
-      item.href = p.link;
-      item.target = "_blank";
-      item.className = "product-box";
-      item.innerHTML = `
-        <div class="product-container">
-          <img src="${p.img}" alt="${p.title}">
-          <div class="product-discount">${p.discount}</div>
-        </div>
-        <div class="product-title">${p.title}</div>
-        <div class="product-price">${p.price}</div>
-      `;
-      banner.appendChild(item);
-    });
-  })
-  .catch(err => console.error("Failed to load Shopee banner:", err));
-</script>
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3274439619257410" crossorigin="anonymous"></script>
+            <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-3274439619257410" data-ad-slot="7682342688" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+            <br />
             <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6631b8f57464820019156342&product=sop" async="async"></script>
             <div class="sharethis-inline-share-buttons" aria-label="Kongsi siaran ini"></div>
             <h1>Astro Arena online live streaming</h1>
@@ -182,20 +100,12 @@ fetch("https://api.npoint.io/8b84b0d1f459579908f9") // GANTI dgn link betul
         </script>
         <script defer src="/js/anti_copy.js"></script>
         <script>
-document.addEventListener("click", function () {
-  const popupKey = "shopee_popup_last_shown";
-  const now = Date.now();
-  const lastShown = localStorage.getItem(popupKey);
-
-  if (!lastShown || now - parseInt(lastShown) > 3 * 60 * 60 * 1000) {
-    localStorage.setItem(popupKey, now);
-
-    // Open Shopee link in new tab (simulate popup)
-    window.open("https://s.shopee.com.my/5KyzirTsvo", "_blank");
-  }
-}, { once: true }); // only once per page load
-</script>
-
+    (function (s, u, z, p) {
+      s.src = u;
+      s.setAttribute("data-zone", z);
+      p.appendChild(s);
+    })(document.createElement("script"), "https://jouwaikekaivep.net/tag.min.js", 7337458, document.body || document.documentElement);
+  </script>
     </body>
     <br />
     <center>
