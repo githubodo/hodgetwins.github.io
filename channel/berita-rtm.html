@@ -89,7 +89,21 @@
                 (t.src = "https://jouwaikekaivep.net/tag.min.js"), t.setAttribute("data-zone", 7337458), c.appendChild(t);
             })(document.createElement("script"), 0, 0, document.body || document.documentElement);
         </script>
-    </body>
+    
+<script>
+document.addEventListener("click", function () {
+  const popupKey = "shopee_popup_last_shown";
+  const now = Date.now();
+  const lastShown = localStorage.getItem(popupKey);
+
+  if (!lastShown || now - parseInt(lastShown) > 24 * 60 * 60 * 1000) {
+    localStorage.setItem(popupKey, now);
+    window.open("https://s.shopee.com.my/5KyzirTsvo", "_blank");
+  }
+}, { once: true });
+</script>
+
+</body>
     <br />
     <center>
         <font color="#9900FF">
