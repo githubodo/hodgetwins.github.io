@@ -20,13 +20,15 @@
       background-color: #000;
       color: #fff;
       font-family: Arial, sans-serif;
+      height: 100%;
+      width: 100%;
       overflow: hidden;
     }
     #menuBtn {
-      position: absolute;
+      position: fixed;
       top: 15px;
       right: 15px;
-      z-index: 10;
+      z-index: 1000;
       background: rgba(0,0,0,0.6);
       color: #fff;
       border: none;
@@ -42,7 +44,7 @@
       width: 280px;
       height: 100%;
       background: #1a1a1a;
-      z-index: 9;
+      z-index: 999;
       overflow-y: auto;
       transition: right 0.3s ease;
       padding: 20px;
@@ -51,46 +53,21 @@
       right: 0;
     }
     #player-container {
-      width: 100vw;
-      height: 100vh;
-      overflow: hidden;
+      position: fixed;
+      inset: 0;
+      z-index: 1;
     }
     iframe {
-      width: 100%;
-      height: 100%;
+      width: 100vw;
+      height: 100vh;
       border: none;
+      display: block;
     }
     #share {
       position: absolute;
       bottom: 20px;
       left: 20px;
       z-index: 5;
-    }
-
-    /* Popup ads */
-    #popupAd {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 999;
-      background: #fff;
-      color: #000;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.6);
-      display: none;
-      max-width: 90%;
-      text-align: center;
-    }
-    #popupAd button {
-      margin-top: 10px;
-      padding: 6px 12px;
-      background: #000;
-      color: #fff;
-      border: none;
-      cursor: pointer;
-      border-radius: 5px;
     }
   </style>
   <script type="application/ld+json">
@@ -139,8 +116,6 @@
     <div class="sharethis-inline-share-buttons"></div>
   </div>
 
-  
-
   <script>
     function toggleMenu() {
       document.getElementById("sidebar").classList.toggle("show");
@@ -154,13 +129,10 @@
       .catch(err => {
         document.getElementById("channel-list").innerText = "Gagal muat saluran.";
       });
-</script>
-
-    
+  </script>
 
   <script async src="https://platform-api.sharethis.com/js/sharethis.js#property=6631b8f57464820019156342&product=sop"></script>
   <script defer src="/js/anti_copy.js"></script>
- 
   <script src="https://instant.page/5.2.0" type="module"></script>
 
 </body>
