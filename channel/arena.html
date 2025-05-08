@@ -1,113 +1,80 @@
 <!DOCTYPE html>
 <html lang="my">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=no" />
-  <meta name="description" content="Tonton Astro Arena secara langsung dalam kualiti HD secara percuma. Siaran sukan Malaysia 24/7 hanya di TV Malaysia Live." />
-  <meta name="keywords" content="Astro Arena, sukan Malaysia, live sport, tonton TV Malaysia, siaran langsung percuma, Arena HD, bola sepak, badminton, live streaming" />
-  <meta name="author" content="TV Malaysia Live" />
+  <meta content="width=device-width, initial-scale=1, maximum-scale=5" name="viewport"/>
+  <meta content="Tonton Astro Arena secara langsung dalam kualiti HD secara percuma. Siaran sukan Malaysia 24/7 hanya di TV Malaysia Live." name="description"/>
+  <meta content="Astro Arena, sukan Malaysia, live sport, tonton TV Malaysia, siaran langsung percuma, Arena HD, bola sepak, badminton, live streaming" name="keywords"/>
+  <meta content="TV Malaysia Live" name="author"/>
   <title>Tonton Astro Arena Live HD | TV Malaysia Live</title>
-  <meta property="og:title" content="Tonton Astro Arena Live HD | TV Malaysia Live" />
-  <meta property="og:description" content="Tonton Astro Arena secara langsung dalam kualiti HD tanpa sebarang bayaran. Siaran sukan tempatan 24/7 percuma." />
-  <meta property="og:image" content="https://www.tvmalaysia.live/images/astro-arena-live-streaming-online.webp" />
-  <meta property="og:url" content="https://www.tvmalaysia.live/channel/arena" />
-  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "BroadcastService",
+                "name": "Astro Arena",
+                "broadcastDisplayName": "Astro Arena Live HD",
+                "broadcastTimezone": "Asia/Kuala_Lumpur",
+                "broadcaster": { "@type": "Organization", "name": "TV Malaysia Live", "url": "https://www.tvmalaysia.live" },
+                "videoFormat": "HD",
+                "broadcastFrequency": "PT24H"
+            }
+        </script>
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-TLN0VD2V7C"></script>
+  <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag("js", new Date());
+            gtag("config", "G-TLN0VD2V7C", { anonymize_ip: true });
+        </script>
+  <script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3274439619257410"></script>
+  <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                "mainEntity": [
+                    {
+                        "@type": "Question",
+                        "name": "Bagaimana cara tonton Astro Arena secara percuma?",
+                        "acceptedAnswer": { "@type": "Answer", "text": "Anda boleh tonton Astro Arena secara langsung secara percuma di TV Malaysia Live tanpa sebarang bayaran." }
+                    },
+                    { "@type": "Question", "name": "Perlu daftar akaun untuk menonton?", "acceptedAnswer": { "@type": "Answer", "text": "Tidak. Anda boleh terus tonton tanpa pendaftaran atau langganan." } }
+                ]
+            }
+        </script>
+  <meta content="summary_large_image" name="twitter:card"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=no" />
   <link rel="icon" href="https://www.tvmalaysia.live/favicon.ico" type="image/x-icon" />
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    html, body {
-      background-color: #000;
-      height: 100%;
-      width: 100%;
-      overflow: hidden;
-    }
-    iframe {
-      position: fixed;
-      inset: 0;
-      z-index: 1;
-      width: 100%;
-      height: 100%;
-      border: none;
-      display: block;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { background-color: #000; height: 100%; width: 100%; overflow: hidden; }
+    iframe { position: fixed; inset: 0; z-index: 1; width: 100%; height: 100%; border: none; display: block; }
     #menuBtn {
-      position: fixed;
-      top: 15px;
-      right: 15px;
-      z-index: 1000;
-      background: rgba(0,0,0,0.6);
-      color: #fff;
-      border: none;
-      padding: 10px 14px;
-      font-size: 16px;
-      border-radius: 4px;
-      cursor: pointer;
+      position: fixed; top: 15px; right: 15px; z-index: 1000;
+      background: rgba(0,0,0,0.6); color: #fff; border: none;
+      padding: 10px 14px; font-size: 16px; border-radius: 4px; cursor: pointer;
     }
     #sidebar {
-      position: fixed;
-      top: 0;
-      right: -300px;
-      width: 280px;
-      height: 100%;
-      background: #1a1a1a;
-      z-index: 999;
-      overflow-y: auto;
-      transition: right 0.3s ease;
-      padding: 20px;
+      position: fixed; top: 0; right: -300px; width: 280px; height: 100%;
+      background: #1a1a1a; z-index: 999; overflow-y: auto;
+      transition: right 0.3s ease; padding: 20px;
     }
-    #sidebar.show {
-      right: 0;
-    }
+    #sidebar.show { right: 0; }
     #share {
-      position: absolute;
-      bottom: 20px;
-      left: 20px;
-      z-index: 5;
+      position: absolute; bottom: 20px; left: 20px; z-index: 5;
     }
-    #adsense-fixed {
-      position: fixed;
-      bottom: 10px;
-      right: 10px;
-      z-index: 1002;
-      background: rgba(0,0,0,0.7);
-      padding: 5px;
-      border-radius: 8px;
+    #adsense-center {
+      display: none; position: fixed; top: 50%; left: 50%;
+      transform: translate(-50%, -50%); z-index: 1003;
+      background: rgba(0, 0, 0, 0.85); padding: 10px;
+      border-radius: 10px; text-align: center;
     }
-    @media (max-width: 480px) {
-      #adsense-fixed {
-        width: 90%;
-        left: 5%;
-        right: 5%;
-      }
+    #adsense-center button {
+      margin-top: 8px; padding: 6px 12px; background: #fff;
+      color: #000; border: none; border-radius: 5px;
+      cursor: pointer; font-weight: bold;
     }
   </style>
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "BroadcastService",
-      "name": "Astro Arena",
-      "broadcastDisplayName": "Astro Arena Live HD",
-      "broadcastTimezone": "Asia/Kuala_Lumpur",
-      "broadcaster": {
-        "@type": "Organization",
-        "name": "TV Malaysia Live",
-        "url": "https://www.tvmalaysia.live"
-      },
-      "videoFormat": "HD",
-      "broadcastFrequency": "PT24H"
-    }
-  </script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TLN0VD2V7C"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag("js", new Date());
-    gtag("config", "G-TLN0VD2V7C", { anonymize_ip: true });
-  </script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3274439619257410" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -123,7 +90,7 @@
     src="https://tcb.homesecuritymac.com/arena.html?t=1745595182"
     allowfullscreen
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen; geolocation; web-share; speaker-selection; screen-wake-lock; idle-detection"
-    title="Tonton Astro Arena Live HD"
+    title="Tonton Astro Arena  HD | TV Malaysia Live HD"
     loading="lazy"
   ></iframe>
 
@@ -131,15 +98,13 @@
     <div class="sharethis-inline-share-buttons"></div>
   </div>
 
-  <!-- Fixed Adsense Bottom-Right -->
-  <div id="adsense-fixed">
+  <div id="adsense-center">
     <ins class="adsbygoogle"
       style="display:inline-block;width:300px;height:250px"
       data-ad-client="ca-pub-3274439619257410"
       data-ad-slot="7682342688"></ins>
-    <script>
-      (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
+    <br />
+    <button onclick="document.getElementById('adsense-center').style.display='none'">Tutup Iklan</button>
   </div>
 
   <script>
@@ -155,6 +120,11 @@
       .catch(err => {
         document.getElementById("channel-list").innerText = "Gagal muat saluran.";
       });
+
+    setTimeout(() => {
+      document.getElementById("adsense-center").style.display = "block";
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    }, 20000);
   </script>
 
   <script async src="https://platform-api.sharethis.com/js/sharethis.js#property=6631b8f57464820019156342&product=sop"></script>
