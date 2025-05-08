@@ -2,7 +2,7 @@
 <html lang="my">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=no" />
   <meta name="description" content="Tonton Astro Arena secara langsung dalam kualiti HD secara percuma. Siaran sukan Malaysia 24/7 hanya di TV Malaysia Live." />
   <meta name="keywords" content="Astro Arena, sukan Malaysia, live sport, tonton TV Malaysia, siaran langsung percuma, Arena HD, bola sepak, badminton, live streaming" />
   <meta name="author" content="TV Malaysia Live" />
@@ -14,15 +14,25 @@
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" href="https://www.tvmalaysia.live/favicon.ico" type="image/x-icon" />
   <style>
-    html, body {
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
       background-color: #000;
-      color: #fff;
-      font-family: Arial, sans-serif;
       height: 100%;
       width: 100%;
       overflow: hidden;
+    }
+    iframe {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
     }
     #menuBtn {
       position: fixed;
@@ -51,17 +61,6 @@
     }
     #sidebar.show {
       right: 0;
-    }
-    #player-container {
-      position: fixed;
-      inset: 0;
-      z-index: 1;
-    }
-    iframe {
-      width: 100vw;
-      height: 100vh;
-      border: none;
-      display: block;
     }
     #share {
       position: absolute;
@@ -100,17 +99,17 @@
   <button id="menuBtn" onclick="toggleMenu()">☰ Channel</button>
 
   <div id="sidebar">
-    <h3>Senarai Saluran</h3>
+    <center><h3>Senarai Saluran</h3></center>
     <div id="channel-list">Memuatkan saluran...</div>
   </div>
 
-  <div id="player-container">
-    <iframe src="https://tcb.homesecuritymac.com/arena.html?t=1745595182"
-      allowfullscreen
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen; geolocation; web-share; speaker-selection; screen-wake-lock; idle-detection"
-      title="Tonton Astro Arena Live HD"
-      loading="lazy"></iframe>
-  </div>
+  <iframe
+    src="https://tcb.homesecuritymac.com/arena.html?t=1745595182"
+    allowfullscreen
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen; geolocation; web-share; speaker-selection; screen-wake-lock; idle-detection"
+    title="Tonton Astro Arena Live HD"
+    loading="lazy"
+  ></iframe>
 
   <div id="share">
     <div class="sharethis-inline-share-buttons"></div>
