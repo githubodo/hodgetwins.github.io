@@ -79,20 +79,6 @@ fetch("https://api.npoint.io/42ec6ec5b5c92e25f36f?t=" + new Date().getTime())
 </script>
 
 <script src="/js/anti_copy.js"></script>
-
-<script>
-document.addEventListener("click", function () {
-  const popupKey = "shopee_popup_last_shown";
-  const now = Date.now();
-  const lastShown = localStorage.getItem(popupKey);
-
-  if (!lastShown || now - parseInt(lastShown) > 24 * 60 * 60 * 1000) {
-    localStorage.setItem(popupKey, now);
-    window.open("https://s.shopee.com.my/5KyzirTsvo", "_blank");
-  }
-}, { once: true });
-</script>
-
 </body>
 <br />
 <center><font color="#9900FF">

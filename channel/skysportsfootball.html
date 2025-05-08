@@ -128,19 +128,5 @@ fetch("https://api.npoint.io/42ec6ec5b5c92e25f36f?t=" + new Date().getTime(), { 
 </center>
 <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
 <script integrity="sha384-jnZyxPjiipYXnSU0ygqeac2q7CVYMbh84q0uHVRRxEtvFPiQYbXWUorga2aqZJ0z" src="https://instant.page/5.2.0" type="module"></script>
-
-<script>
-document.addEventListener("click", function () {
-  const popupKey = "shopee_popup_last_shown";
-  const now = Date.now();
-  const lastShown = localStorage.getItem(popupKey);
-
-  if (!lastShown || now - parseInt(lastShown) > 24 * 60 * 60 * 1000) {
-    localStorage.setItem(popupKey, now);
-    window.open("https://s.shopee.com.my/5KyzirTsvo", "_blank");
-  }
-}, { once: true });
-</script>
-
 </body>
 </html>
