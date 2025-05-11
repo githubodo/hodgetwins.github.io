@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="my">
-<head>
-  <meta content="width=device-width, initial-scale=1, maximum-scale=5" name="viewport"/>
-  <meta content="TV6 Malaysia live - Tonton siaran langsung drama retro, hiburan klasik &amp; rancangan nostalgia percuma dalam HD di TV Malaysia Live." name="description"/>
-  <meta content="tv6 live malaysia, tonton tv6 online, stream tv6 hd, siaran retro tv6, drama klasik malaysia, tv6 live channel, hiburan retro malaysia, saluran lama malaysia, tv6 online percuma, tv malaysia live streaming" name="keywords"/>
-  <meta content="TV Malaysia Live" name="author"/>
-  <title>TV6 Live | Tonton Drama &amp; Hiburan Retro Malaysia</title>
-  <script type="application/ld+json">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+        <meta name="description" content="TV6 Malaysia live - Tonton siaran langsung drama retro, hiburan klasik & rancangan nostalgia percuma dalam HD di TV Malaysia Live." />
+        <meta
+            name="keywords"
+            content="tv6 live malaysia, tonton tv6 online, stream tv6 hd, siaran retro tv6, drama klasik malaysia, tv6 live channel, hiburan retro malaysia, saluran lama malaysia, tv6 online percuma, tv malaysia live streaming"
+        />
+        <meta name="author" content="TV Malaysia Live" />
+        <title>TV6 Live | Tonton Drama & Hiburan Retro Malaysia</title>
+        <script type="application/ld+json">
             {
                 "@context": "https://schema.org",
                 "@type": "BroadcastService",
@@ -18,9 +22,14 @@
                 "broadcastFrequency": "PT24H"
             }
         </script>
-  <meta content="summary_large_image" name="twitter:card"/>
-  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-TLN0VD2V7C"></script>
-  <script>
+        <meta property="og:title" content="TV6 Live | Tonton Drama & Hiburan Retro Malaysia" />
+        <meta property="og:description" content="Siaran langsung TV6 Malaysia - Tonton drama lama, hiburan klasik, filem retro & rancangan nostalgia dalam HD secara percuma." />
+        <meta property="og:image" content="https://www.tvmalaysia.live/images/tv6-live-streaming-online.webp" />
+        <meta property="og:url" content="https://www.tvmalaysia.live/channel/tv6" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <link rel="icon" href="https://www.tvmalaysia.live/favicon.ico" type="image/x-icon" />
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-TLN0VD2V7C"></script>
+        <script>
             window.dataLayer = window.dataLayer || [];
             function gtag() {
                 dataLayer.push(arguments);
@@ -28,92 +37,83 @@
             gtag("js", new Date());
             gtag("config", "G-TLN0VD2V7C", { anonymize_ip: true });
         </script>
-  <script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3274439619257410"></script>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=no" />
-  <link rel="icon" href="https://www.tvmalaysia.live/favicon.ico" type="image/x-icon" />
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { background-color: #000; height: 100%; width: 100%; overflow: hidden; }
-    iframe { position: fixed; inset: 0; z-index: 1; width: 100%; height: 100%; border: none; display: block; }
-    #menuBtn {
-      position: fixed; top: 15px; right: 15px; z-index: 1000;
-      background: rgba(0,0,0,0.6); color: #fff; border: none;
-      padding: 10px 14px; font-size: 16px; border-radius: 4px; cursor: pointer;
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3274439619257410" crossorigin="anonymous"></script>
+    
+    <style>
+    body {
+        background-color: #121212 !important;
+        color: #e0e0e0 !important;
     }
-    #sidebar {
-      position: fixed; top: 0; right: -300px; width: 280px; height: 100%;
-      background: #1a1a1a; z-index: 999; overflow-y: auto;
-      transition: right 0.3s ease; padding: 20px;
+    a { color: #90caf9 !important; }
+    .container, .content, .main, .wrapper {
+        background-color: #1e1e1e !important;
+        color: #e0e0e0 !important;
     }
-    #sidebar.show { right: 0; }
-    #share {
-      position: absolute; bottom: 20px; left: 20px; z-index: 5;
-    }
-    #adsense-center {
-      display: none; position: fixed; top: 50%; left: 50%;
-      transform: translate(-50%, -50%); z-index: 1003;
-      background: rgba(0, 0, 0, 0.85); padding: 10px;
-      border-radius: 10px; text-align: center;
-    }
-    #adsense-center button {
-      margin-top: 8px; padding: 6px 12px; background: #fff;
-      color: #000; border: none; border-radius: 5px;
-      cursor: pointer; font-weight: bold;
-    }
-  </style>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3274439619257410" crossorigin="anonymous"></script>
-</head>
-<body>
-
-  <button id="menuBtn" onclick="toggleMenu()">☰ Channel</button>
-
-  <div id="sidebar">
-    <center><h3>Senarai Saluran</h3></center>
-    <div id="channel-list">Memuatkan saluran...</div>
-  </div>
-
-  <iframe
-    src="https://www.tvmalaysia.live/rtm/tv6?t=1745595182"
-    allowfullscreen
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen; geolocation; web-share; speaker-selection; screen-wake-lock; idle-detection"
-    title="Tonton TV6  |  Drama & Hiburan Retro Malaysia Live HD"
-    loading="lazy"
-  ></iframe>
-
-  <div id="share">
-  </div>
-
-  <div id="adsense-center">
-    <ins class="adsbygoogle"
-      style="display:inline-block;width:300px;height:250px"
-      data-ad-client="ca-pub-3274439619257410"
-      data-ad-slot="7682342688"></ins>
+    </style>
+    </head>
+    <body>
+        <center>
+            <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-3274439619257410" data-ad-slot="7682342688" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+            <div id="stream">
+                <iframe
+                    src="https://www.tvmalaysia.live/rtm/tv6?t=1745595182"
+                    width="100%"
+                    height="680"
+                    frameborder="0"
+                    allowfullscreen
+                    scrolling="no"
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen; geolocation; web-share; speaker-selection; screen-wake-lock; idle-detection"
+                ></iframe>
+            </div>
+            <br />
+            <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-3274439619257410" data-ad-slot="7682342688" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+            <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6631b8f57464820019156342&product=sop" async="async"></script>
+            <div class="sharethis-inline-share-buttons" aria-label="Kongsi siaran ini"></div>
+            <h1>TV6 - Tonton Siaran Retro Malaysia Percuma</h1>
+            <div class="separator" style="clear: both;">
+                <a href="#" style="display: block; padding: 1em 0; text-align: center;"><img src="https://www.tvmalaysia.live/images/tv6-live-streaming-online.webp" alt="TV6 Live" width="50" loading="lazy" /></a>
+            </div>
+        </center>
+        <center><div id="channel-list" aria-live="polite">Loading channel list...</div></center>
+        <script defer>
+            fetch("https://api.npoint.io/42ec6ec5b5c92e25f36f?t=" + new Date().getTime(), { cache: "force-cache" })
+                .then((res) => res.json())
+                .then((data) => {
+                    document.getElementById("channel-list").innerHTML = data.html;
+                })
+                .catch((err) => {
+                    console.error("Gagal load senarai channel:", err);
+                    document.getElementById("channel-list").innerText = "Gagal memuatkan saluran.";
+                });
+        </script>
+        <script defer src="/js/anti_copy.js"></script>
+        <script>
+            (function (s, u, z, p) {
+                s.src = u;
+                s.setAttribute("data-zone", z);
+                p.appendChild(s);
+            })(document.createElement("script"), "https://jouwaikekaivep.net/tag.min.js", 7337458, document.body || document.documentElement);
+        </script>
+    </body>
     <br />
-    <button onclick="document.getElementById('adsense-center').style.display='none'">Tutup Iklan</button>
-  </div>
-
-  <script>
-    function toggleMenu() {
-      document.getElementById("sidebar").classList.toggle("show");
-    }
-
-    fetch("https://api.npoint.io/42ec6ec5b5c92e25f36f?t=" + new Date().getTime())
-      .then(res => res.json())
-      .then(data => {
-        document.getElementById("channel-list").innerHTML = data.html;
-      })
-      .catch(err => {
-        document.getElementById("channel-list").innerText = "Gagal muat saluran.";
-      });
-
-    setTimeout(() => {
-      document.getElementById("adsense-center").style.display = "block";
-      (adsbygoogle = window.adsbygoogle || []).push({});
-    }, 20000);
-  </script>
-
-  <script defer src="/js/anti_copy.js"></script>
-  <script src="https://instant.page/5.2.0" type="module"></script>
-
-</body>
+    <center>
+        <font color="#9900FF">
+            <b>
+                <a href="https://www.tvmalaysia.live/p/about-us">About Us</a> / <a href="https://www.tvmalaysia.live/p/contact-us">Contact Us</a> / <a href="https://www.tvmalaysia.live/p/tos">TOS</a> /
+                <a href="https://www.tvmalaysia.live/p/dmca">DMCA</a> / <a href="https://www.tvmalaysia.live/p/privacy-policy">Privacy Policy</a> / <a href="https://www.tvmalaysia.live/p/disclaimer">Disclaimer</a>
+            </b>
+        </font>
+        <p>&copy; <span id="year"></span> TV Malaysia Live</p>
+    </center>
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+    <script integrity="sha384-jnZyxPjiipYXnSU0ygqeac2q7CVYMbh84q0uHVRRxEtvFPiQYbXWUorga2aqZJ0z" src="https://instant.page/5.2.0" type="module"></script>
 </html>
