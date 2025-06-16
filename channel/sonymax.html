@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1, maximum-scale=5" name="viewport"/>
+  <meta name="description" content="Tonton Sony Max HD secara langsung dalam kualiti HD secara percuma di TV Malaysia Live. Siaran filem dan hiburan India 24/7."/>
+  <meta name="keywords" content="Sony Max HD, live Sony Max, tonton Sony Max, saluran India, TV Malaysia live, siaran langsung filem Hindi, bollywood hd live"/>
+  <meta name="author" content="TV Malaysia Live"/>
+  <title>Tonton Sony Max HD Live Streaming Percuma | TV Malaysia Live</title>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TLN0VD2V7C"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-TLN0VD2V7C', { anonymize_ip: true });
+  </script>
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Tonton Sony Max HD Live Streaming Percuma | TV Malaysia Live"/>
+  <meta property="og:description" content="Tonton Sony Max HD secara langsung dalam kualiti HD. Saluran filem dan hiburan India 24 jam hanya di TV Malaysia Live."/>
+  <meta property="og:image" content="https://www.tvmalaysia.live/images/sony-max-hd-live.webp"/>
+  <meta property="og:url" content="https://www.tvmalaysia.live/channel/sony-max-hd"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="icon" href="https://www.tvmalaysia.live/favicon.ico" type="image/x-icon"/>
+
+  <!-- Schema BroadcastService -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BroadcastService",
+      "name": "Sony Max HD",
+      "broadcastDisplayName": "Sony Max HD Live",
+      "broadcastTimezone": "Asia/Kuala_Lumpur",
+      "broadcaster": {
+        "@type": "Organization",
+        "name": "TV Malaysia Live",
+        "url": "https://www.tvmalaysia.live"
+      },
+      "videoFormat": "HD",
+      "broadcastFrequency": "PT24H"
+    }
+  </script>
+
+  <!-- FAQ Schema -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Bagaimana cara tonton Sony Max HD secara percuma?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Anda boleh tonton Sony Max HD secara langsung secara percuma di TV Malaysia Live tanpa sebarang bayaran atau langganan."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Perlu daftar akaun untuk menonton Sony Max HD?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Tidak perlu. Anda boleh terus menonton tanpa pendaftaran."
+          }
+        }
+      ]
+    }
+  </script>
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      background-color: #121212;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+    }
+    #stream-container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      background-color: #000;
+    }
+    #stream-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <center>
+    <div id="stream">
+      <div id="stream-container">
+        <iframe src="https://tcb.homesecuritymac.com/sonymax.html?t=1745595182"
+          title="Tonton Sony Max HD Live"
+          loading="lazy"
+          allowfullscreen
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen; geolocation; web-share; speaker-selection; screen-wake-lock; idle-detection"
+          aria-label="Live stream Sony Max HD">
+        </iframe>
+      </div>
+
+      <!-- Ads -->
+      <div id="ads-container" style="text-align:center;padding:10px 0;background:#1e1e1e;">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3274439619257410" crossorigin="anonymous"></script>
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-3274439619257410"
+             data-ad-slot="7682342688"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+      </div>
+    </div>
+
+    <br/>
+    <script async src="https://platform-api.sharethis.com/js/sharethis.js#property=6631b8f57464820019156342&product=sop" type="text/javascript"></script>
+    <div class="sharethis-inline-share-buttons" aria-label="Kongsi siaran ini"></div>
+
+    <h1>Sony Max HD online live streaming</h1>
+    <div class="separator" style="clear: both;">
+      <a href="#" style="display: block; padding: 1em 0; text-align: center;">
+        <img src="https://www.tvmalaysia.live/images/sony-max-hd-live.webp" width="50" alt="Tonton Sony Max HD Live Streaming" loading="lazy"/>
+      </a>
+    </div>
+  </center>
+
+  <!-- Channel List -->
+  <center><div id="channel-list" aria-live="polite">Loading channel list...</div></center>
+  <script defer>
+    fetch("https://api.npoint.io/42ec6ec5b5c92e25f36f?t=" + new Date().getTime())
+      .then((res) => res.json())
+      .then((data) => {
+        document.getElementById("channel-list").innerHTML = data.html;
+      })
+      .catch((err) => {
+        console.error("Gagal load senarai channel:", err);
+        document.getElementById("channel-list").innerText = "Gagal memuatkan saluran.";
+      });
+  </script>
+
+  <script src="/js/anti_copy.js" defer></script>
+  <script>
+    (function (s, u, z, p) {
+      s.src = u;
+      s.setAttribute("data-zone", z);
+      p.appendChild(s);
+    })(document.createElement("script"), "https://jouwaikekaivep.net/tag.min.js", 7337458, document.body || document.documentElement);
+  </script>
+
+  <br/>
+  <center>
+    <font color="#9900FF">
+      <b>
+        <a href="https://www.tvmalaysia.live/p/about-us">About Us</a> /
+        <a href="https://www.tvmalaysia.live/p/contact-us">Contact Us</a> /
+        <a href="https://www.tvmalaysia.live/p/tos">TOS</a> /
+        <a href="https://www.tvmalaysia.live/p/dmca">DMCA</a> /
+        <a href="https://www.tvmalaysia.live/p/privacy-policy">Privacy Policy</a> /
+        <a href="https://www.tvmalaysia.live/p/disclaimer">Disclaimer</a>
+      </b>
+    </font>
+    <p>© <span id="year"></span> TV Malaysia Live</p>
+  </center>
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+  <script src="https://instant.page/5.2.0" type="module" integrity="sha384-jnZyxPjiipYXnSU0ygqeac2q7CVYMbh84q0uHVRRxEtvFPiQYbXWUorga2aqZJ0z"></script>
+</body>
+</html>
