@@ -58,21 +58,13 @@
     .then(data => {
       const epgBox = document.getElementById("epg-astro-ria");
 
-      const nowUTC = new Date();
-      const nowMY = new Date(nowUTC.getTime() + (8 * 60 * 60 * 1000));
-      console.log("🕒 SEKARANG (MY):", nowMY.toString());
+      const now = new Date();
 
-      const todayMY = new Intl.DateTimeFormat('en-GB', {
-        timeZone: 'Asia/Kuala_Lumpur',
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit'
-      }).format(nowMY).split('/').reverse().join('');
+      // Convert current Malaysia time manually to YYYYMMDD
+      const nowMY = new Date(now.getTime() + (8 * 60 * 60 * 1000));
+      const todayMY = nowMY.toISOString().slice(0,10).replace(/-/g, "");
 
-      const filtered = data.filter(item => {
-        const startDate = item.start.slice(0, 8);
-        return startDate === todayMY;
-      });
+      const filtered = data.filter(item => item.start.slice(0, 8) === todayMY);
 
       if (filtered.length === 0) {
         epgBox.innerHTML = "<p>Tiada jadual rancangan untuk hari ini.</p>";
@@ -80,30 +72,23 @@
       }
 
       const html = filtered.map(item => {
-        const fixTZ = (str) => str.replace(/(\d{2})(\d{2})$/, '+$1:$2');
+        // Parse manually the time with GMT+8
+        const parseMY = (raw) => {
+          const year = raw.slice(0, 4);
+          const month = raw.slice(4, 6);
+          const day = raw.slice(6, 8);
+          const hour = raw.slice(8, 10);
+          const minute = raw.slice(10, 12);
+          const second = raw.slice(12, 14);
+          return Date.UTC(year, month - 1, day, hour, minute, second) + (8 * 60 * 60 * 1000); // +8 jam
+        };
 
-        const startRaw = item.start;
-        const stopRaw = item.stop;
+        const startTime = parseMY(item.start);
+        const stopTime = parseMY(item.stop);
+        const isNowPlaying = now.getTime() >= startTime && now.getTime() < stopTime;
 
-        const startISO = `${startRaw.slice(0,4)}-${startRaw.slice(4,6)}-${startRaw.slice(6,8)}T${startRaw.slice(8,10)}:${startRaw.slice(10,12)}:${startRaw.slice(12,14)}${fixTZ(startRaw.slice(14))}`;
-        const stopISO  = `${stopRaw.slice(0,4)}-${stopRaw.slice(4,6)}-${stopRaw.slice(6,8)}T${stopRaw.slice(8,10)}:${stopRaw.slice(10,12)}:${stopRaw.slice(12,14)}${fixTZ(stopRaw.slice(14))}`;
-
-        const startTime = new Date(startISO);
-        const stopTime = new Date(stopISO);
-
-        const isNowPlaying = nowMY >= startTime && nowMY < stopTime;
-
-        // DEBUG LOG
-        console.log("🎬", item.title);
-        console.log("   Start:", startTime.toString());
-        console.log("   Stop :", stopTime.toString());
-        console.log("   Now  :", nowMY.toString());
-        console.log("   Active:", isNowPlaying);
-        console.log("--------------------------");
-
-        const rawTime = item.start.slice(8, 12);
-        const hour = parseInt(rawTime.slice(0, 2));
-        const minute = rawTime.slice(2, 4);
+        const hour = parseInt(item.start.slice(8,10));
+        const minute = item.start.slice(10,12);
         const ampm = hour >= 12 ? 'PM' : 'AM';
         const hour12 = hour % 12 === 0 ? 12 : hour % 12;
         const formattedTime = `${hour12}:${minute} ${ampm}`;
