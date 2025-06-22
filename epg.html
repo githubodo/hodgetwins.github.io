@@ -33,23 +33,6 @@
     margin-top: 4px;
     line-height: 1.4;
   }
-
-.epg-item.now-playing {
-  background-color: #222;
-  border-left: 4px solid #0f0;
-  padding-left: 10px;
-}
-
-.epg-item .badge {
-  background: #0f0;
-  color: #000;
-  font-size: 0.8rem;
-  padding: 2px 6px;
-  display: inline-block;
-  margin-top: 5px;
-  border-radius: 4px;
-}
-
 </style>
 
 <script>
@@ -58,46 +41,40 @@
     .then(data => {
       const epgBox = document.getElementById("epg-astro-ria");
 
-      const now = new Date();
+      const nowUTC = new Date();
+      const nowMY = new Date(nowUTC.getTime() + (8 * 60 * 60 * 1000)); // Malaysia time
 
-      // Convert current Malaysia time manually to YYYYMMDD
-      const nowMY = new Date(now.getTime() + (8 * 60 * 60 * 1000));
       const todayMY = nowMY.toISOString().slice(0,10).replace(/-/g, "");
 
-      const filtered = data.filter(item => item.start.slice(0, 8) === todayMY);
+      const filtered = data.filter(item => {
+        const startDate = item.start.slice(0, 8);
+        const year = item.start.slice(0, 4);
+        const month = item.start.slice(4, 6);
+        const day = item.start.slice(6, 8);
+        const hour = item.start.slice(8, 10);
+        const minute = item.start.slice(10, 12);
+        const second = item.start.slice(12, 14);
+        const startTime = new Date(Date.UTC(year, month - 1, day, hour, minute, second) + (8 * 60 * 60 * 1000));
+        return startDate === todayMY && startTime >= nowMY;
+      });
 
       if (filtered.length === 0) {
-        epgBox.innerHTML = "<p>Tiada jadual rancangan untuk hari ini.</p>";
+        epgBox.innerHTML = "<p>Tiada rancangan akan datang untuk hari ini.</p>";
         return;
       }
 
       const html = filtered.map(item => {
-        // Parse manually the time with GMT+8
-        const parseMY = (raw) => {
-          const year = raw.slice(0, 4);
-          const month = raw.slice(4, 6);
-          const day = raw.slice(6, 8);
-          const hour = raw.slice(8, 10);
-          const minute = raw.slice(10, 12);
-          const second = raw.slice(12, 14);
-          return Date.UTC(year, month - 1, day, hour, minute, second) + (8 * 60 * 60 * 1000); // +8 jam
-        };
-
-        const startTime = parseMY(item.start);
-        const stopTime = parseMY(item.stop);
-        const isNowPlaying = now.getTime() >= startTime && now.getTime() < stopTime;
-
-        const hour = parseInt(item.start.slice(8,10));
-        const minute = item.start.slice(10,12);
+        const rawTime = item.start.slice(8, 12);
+        const hour = parseInt(rawTime.slice(0, 2));
+        const minute = rawTime.slice(2, 4);
         const ampm = hour >= 12 ? 'PM' : 'AM';
         const hour12 = hour % 12 === 0 ? 12 : hour % 12;
         const formattedTime = `${hour12}:${minute} ${ampm}`;
 
         return `
-          <div class="epg-item${isNowPlaying ? ' now-playing' : ''}">
+          <div class="epg-item">
             <strong>${formattedTime}</strong> - ${item.title}
             <small>${item.desc}</small>
-            ${isNowPlaying ? '<div class="badge">✅ Sedang Bersiaran</div>' : ''}
           </div>
         `;
       }).join('');
@@ -109,6 +86,4 @@
       document.getElementById("epg-astro-ria").innerHTML = "<p>Gagal memuatkan jadual rancangan.</p>";
     });
 </script>
-
-
 <!-- ✅ END EPG SECTION -->
