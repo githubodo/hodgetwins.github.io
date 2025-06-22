@@ -40,29 +40,16 @@
     .then(res => res.json())
     .then(data => {
       const epgBox = document.getElementById("epg-astro-ria");
-      const now = new Date();
 
-      const today = now.toISOString().slice(0, 10); // format: YYYY-MM-DD
-
-      const filtered = data.filter(item => {
-        const raw = item.start;
-        const iso = `${raw.slice(0, 4)}-${raw.slice(4, 6)}-${raw.slice(6, 8)}T${raw.slice(8, 10)}:${raw.slice(10, 12)}:${raw.slice(12, 14)}${raw.slice(14)}`;
-        const epgDate = new Date(iso);
-
-        const epgDay = epgDate.toISOString().slice(0, 10); // same format: YYYY-MM-DD
-
-        return epgDate >= now && epgDay === today;
-      });
-
-      if (filtered.length === 0) {
-        epgBox.innerHTML = "<p>Tiada rancangan akan datang untuk hari ini.</p>";
+      if (!data || data.length === 0) {
+        epgBox.innerHTML = "<p>Tiada jadual rancangan tersedia buat masa ini.</p>";
         return;
       }
 
-      const html = filtered.map(item => {
-        const rawTime = item.start.slice(8, 12);
-        const hour = parseInt(rawTime.slice(0, 2));
-        const minute = rawTime.slice(2, 4);
+      const html = data.map(item => {
+        const rawTime = item.start.slice(8, 12); // "1900"
+        const hour = parseInt(rawTime.slice(0,2));
+        const minute = rawTime.slice(2,4);
         const ampm = hour >= 12 ? 'PM' : 'AM';
         const hour12 = hour % 12 === 0 ? 12 : hour % 12;
         const formattedTime = `${hour12}:${minute} ${ampm}`;
@@ -75,13 +62,11 @@
         `;
       }).join('');
 
-      epgBox.innerHTML = `<h3>📺 Jadual Astro Ria (Terkini & Akan Datang Hari Ini)</h3>${html}`;
+      epgBox.innerHTML = `<h3>📺 Jadual Rancangan Astro Ria (Hari Ini)</h3>${html}`;
     })
     .catch(error => {
       console.error("EPG Fetch Error:", error);
       document.getElementById("epg-astro-ria").innerHTML = "<p>Gagal memuatkan jadual rancangan.</p>";
     });
 </script>
-
-
 <!-- ✅ END EPG SECTION -->
