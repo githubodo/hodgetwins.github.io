@@ -1,0 +1,72 @@
+<!-- ✅ START EPG SECTION FOR ASTRO RIA -->
+<div id="epg-astro-ria" class="epg-box">
+  <p>Muatkan jadual rancangan Astro Ria...</p>
+</div>
+
+<style>
+  .epg-box {
+    background: #111;
+    color: #eee;
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 30px;
+    font-family: Arial, sans-serif;
+  }
+  .epg-box h3 {
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #444;
+    padding-bottom: 6px;
+    color: #0ff;
+  }
+  .epg-item {
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px dotted #333;
+  }
+  .epg-item strong {
+    color: #ffd700;
+  }
+  .epg-item small {
+    display: block;
+    color: #ccc;
+    margin-top: 4px;
+    line-height: 1.4;
+  }
+</style>
+
+<script>
+  fetch("https://epg.tvmalaysia.workers.dev/?channel=104.astro")
+    .then(res => res.json())
+    .then(data => {
+      const epgBox = document.getElementById("epg-astro-ria");
+
+      if (!data || data.length === 0) {
+        epgBox.innerHTML = "<p>Tiada jadual rancangan tersedia buat masa ini.</p>";
+        return;
+      }
+
+      const html = data.map(item => {
+        const rawTime = item.start.slice(8, 12); // "1900"
+        const hour = parseInt(rawTime.slice(0,2));
+        const minute = rawTime.slice(2,4);
+        const ampm = hour >= 12 ? 'PM' : 'AM';
+        const hour12 = hour % 12 === 0 ? 12 : hour % 12;
+        const formattedTime = `${hour12}:${minute} ${ampm}`;
+
+        return `
+          <div class="epg-item">
+            <strong>${formattedTime}</strong> - ${item.title}
+            <small>${item.desc}</small>
+          </div>
+        `;
+      }).join('');
+
+      epgBox.innerHTML = `<h3>📺 Jadual Rancangan Astro Ria (Hari Ini)</h3>${html}`;
+    })
+    .catch(error => {
+      console.error("EPG Fetch Error:", error);
+      document.getElementById("epg-astro-ria").innerHTML = "<p>Gagal memuatkan jadual rancangan.</p>";
+    });
+</script>
+<!-- ✅ END EPG SECTION -->
