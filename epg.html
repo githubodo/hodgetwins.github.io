@@ -53,18 +53,74 @@
 </style>
 
 <script>
-  console.log("📡 SCRIPT EPG LOADING...");
-
   fetch("https://epg.tvmalaysia.workers.dev/?channel=104.astro")
-    .then(res => {
-      console.log("✅ EPG Response OK");
-      return res.json();
-    })
+    .then(res => res.json())
     .then(data => {
-      console.log("📦 Data Loaded:", data.length, "item(s)");
+      const epgBox = document.getElementById("epg-astro-ria");
+
+      const now = new Date();
+      console.log("🕒 SEKARANG:", now.toString());
+
+      const todayMY = new Intl.DateTimeFormat('en-GB', {
+        timeZone: 'Asia/Kuala_Lumpur',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+      }).format(now).split('/').reverse().join('');
+
+      const filtered = data.filter(item => {
+        const startDate = item.start.slice(0, 8);
+        return startDate === todayMY;
+      });
+
+      if (filtered.length === 0) {
+        epgBox.innerHTML = "<p>Tiada jadual rancangan untuk hari ini.</p>";
+        return;
+      }
+
+      const html = filtered.map(item => {
+        const fixTZ = (str) => str.replace(/(\d{2})(\d{2})$/, '+$1:$2');
+
+        const startRaw = item.start;
+        const stopRaw = item.stop;
+
+        const startISO = `${startRaw.slice(0,4)}-${startRaw.slice(4,6)}-${startRaw.slice(6,8)}T${startRaw.slice(8,10)}:${startRaw.slice(10,12)}:${startRaw.slice(12,14)}${fixTZ(startRaw.slice(14))}`;
+        const stopISO  = `${stopRaw.slice(0,4)}-${stopRaw.slice(4,6)}-${stopRaw.slice(6,8)}T${stopRaw.slice(8,10)}:${stopRaw.slice(10,12)}:${stopRaw.slice(12,14)}${fixTZ(stopRaw.slice(14))}`;
+
+        const startTime = new Date(startISO);
+        const stopTime = new Date(stopISO);
+
+        const isNowPlaying = now >= startTime && now < stopTime;
+
+        // DEBUG LOG
+        console.log("🎬", item.title);
+        console.log("   Start:", startTime.toString());
+        console.log("   Stop :", stopTime.toString());
+        console.log("   Now  :", now.toString());
+        console.log("   Active:", isNowPlaying);
+        console.log("--------------------------");
+
+        const rawTime = item.start.slice(8, 12);
+        const hour = parseInt(rawTime.slice(0, 2));
+        const minute = rawTime.slice(2, 4);
+        const ampm = hour >= 12 ? 'PM' : 'AM';
+        const hour12 = hour % 12 === 0 ? 12 : hour % 12;
+        const formattedTime = `${hour12}:${minute} ${ampm}`;
+
+        return `
+          <div class="epg-item${isNowPlaying ? ' now-playing' : ''}">
+            <strong>${formattedTime}</strong> - ${item.title}
+            <small>${item.desc}</small>
+            ${isNowPlaying ? '<div class="badge">✅ Sedang Bersiaran</div>' : ''}
+          </div>
+        `;
+      }).join('');
+
+      epgBox.innerHTML = `<h3>📺 Jadual Rancangan Astro Ria (Hari Ini)</h3>${html}`;
     })
     .catch(error => {
-      console.error("❌ Fetch Failed:", error);
+      console.error("EPG Fetch Error:", error);
+      document.getElementById("epg-astro-ria").innerHTML = "<p>Gagal memuatkan jadual rancangan.</p>";
     });
 </script>
 
