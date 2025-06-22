@@ -1,3 +1,40 @@
+<!-- ✅ START EPG SECTION FOR ASTRO RIA -->
+<div id="epg-astro-ria" class="epg-box">
+  <p>Muatkan jadual rancangan Astro Ria...</p>
+</div>
+
+<style>
+  .epg-box {
+    background: #111;
+    color: #eee;
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 30px;
+    font-family: Arial, sans-serif;
+  }
+  .epg-box h3 {
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #444;
+    padding-bottom: 6px;
+    color: #0ff;
+  }
+  .epg-item {
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px dotted #333;
+  }
+  .epg-item strong {
+    color: #ffd700;
+  }
+  .epg-item small {
+    display: block;
+    color: #ccc;
+    margin-top: 4px;
+    line-height: 1.4;
+  }
+</style>
+
 <script>
   fetch("https://epg.tvmalaysia.workers.dev/?channel=104.astro")
     .then(res => res.json())
@@ -45,3 +82,5 @@
       document.getElementById("epg-astro-ria").innerHTML = "<p>Gagal memuatkan jadual rancangan.</p>";
     });
 </script>
+
+<!-- ✅ END EPG SECTION -->
