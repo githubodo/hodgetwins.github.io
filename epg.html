@@ -58,15 +58,16 @@
     .then(data => {
       const epgBox = document.getElementById("epg-astro-ria");
 
-      const now = new Date();
-      console.log("🕒 SEKARANG:", now.toString());
+      const nowUTC = new Date();
+      const nowMY = new Date(nowUTC.getTime() + (8 * 60 * 60 * 1000));
+      console.log("🕒 SEKARANG (MY):", nowMY.toString());
 
       const todayMY = new Intl.DateTimeFormat('en-GB', {
         timeZone: 'Asia/Kuala_Lumpur',
         year: 'numeric',
         month: '2-digit',
         day: '2-digit'
-      }).format(now).split('/').reverse().join('');
+      }).format(nowMY).split('/').reverse().join('');
 
       const filtered = data.filter(item => {
         const startDate = item.start.slice(0, 8);
@@ -90,13 +91,13 @@
         const startTime = new Date(startISO);
         const stopTime = new Date(stopISO);
 
-        const isNowPlaying = now >= startTime && now < stopTime;
+        const isNowPlaying = nowMY >= startTime && nowMY < stopTime;
 
         // DEBUG LOG
         console.log("🎬", item.title);
         console.log("   Start:", startTime.toString());
         console.log("   Stop :", stopTime.toString());
-        console.log("   Now  :", now.toString());
+        console.log("   Now  :", nowMY.toString());
         console.log("   Active:", isNowPlaying);
         console.log("--------------------------");
 
