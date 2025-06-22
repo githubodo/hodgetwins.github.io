@@ -42,16 +42,13 @@
       const epgBox = document.getElementById("epg-astro-ria");
 
       const now = new Date();
-      const msiaNow = new Date(now.getTime() + (8 * 60 * 60 * 1000)); // UTC+8
 
       const filtered = data.filter(item => {
-        const y = item.start.slice(0, 4);
-        const m = item.start.slice(4, 6);
-        const d = item.start.slice(6, 8);
-        const H = item.start.slice(8, 10);
-        const M = item.start.slice(10, 12);
-        const epgDate = new Date(`${y}-${m}-${d}T${H}:${M}:00+08:00`);
-        return epgDate >= msiaNow;
+        // Buat date terus dari format + timezone (e.g. 20250621185900 +0800)
+        const raw = item.start;
+        const iso = `${raw.slice(0, 4)}-${raw.slice(4, 6)}-${raw.slice(6, 8)}T${raw.slice(8, 10)}:${raw.slice(10, 12)}:${raw.slice(12, 14)}${raw.slice(14)}`;
+        const epgDate = new Date(iso);
+        return epgDate >= now;
       });
 
       if (filtered.length === 0) {
@@ -60,7 +57,7 @@
       }
 
       const html = filtered.map(item => {
-        const rawTime = item.start.slice(8, 12); // "1900"
+        const rawTime = item.start.slice(8, 12);
         const hour = parseInt(rawTime.slice(0, 2));
         const minute = rawTime.slice(2, 4);
         const ampm = hour >= 12 ? 'PM' : 'AM';
@@ -82,5 +79,6 @@
       document.getElementById("epg-astro-ria").innerHTML = "<p>Gagal memuatkan jadual rancangan.</p>";
     });
 </script>
+
 
 <!-- ✅ END EPG SECTION -->
