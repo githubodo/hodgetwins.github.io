@@ -42,26 +42,18 @@
       const epgBox = document.getElementById("epg-astro-ria");
 
       const now = new Date();
-      const todayMY = new Intl.DateTimeFormat('en-CA', {
+
+      // Ambil tarikh hari ini ikut Malaysia GMT+8 (YYYYMMDD)
+      const todayMY = new Intl.DateTimeFormat('en-GB', {
         timeZone: 'Asia/Kuala_Lumpur',
         year: 'numeric',
         month: '2-digit',
         day: '2-digit'
-      }).format(now); // Format: "2025-06-22"
+      }).format(now).split('/').reverse().join(''); // e.g. "20250622"
 
       const filtered = data.filter(item => {
-        const raw = item.start;
-        const iso = `${raw.slice(0,4)}-${raw.slice(4,6)}-${raw.slice(6,8)}T${raw.slice(8,10)}:${raw.slice(10,12)}:${raw.slice(12,14)}${raw.slice(14)}`;
-        const epgDate = new Date(iso);
-
-        const epgDateMY = new Intl.DateTimeFormat('en-CA', {
-          timeZone: 'Asia/Kuala_Lumpur',
-          year: 'numeric',
-          month: '2-digit',
-          day: '2-digit'
-        }).format(epgDate);
-
-        return epgDateMY === todayMY;
+        const startDate = item.start.slice(0, 8); // "20250622"
+        return startDate === todayMY;
       });
 
       if (filtered.length === 0) {
@@ -70,7 +62,7 @@
       }
 
       const html = filtered.map(item => {
-        const rawTime = item.start.slice(8, 12); // "1830"
+        const rawTime = item.start.slice(8, 12); // e.g. "1830"
         const hour = parseInt(rawTime.slice(0, 2));
         const minute = rawTime.slice(2, 4);
         const ampm = hour >= 12 ? 'PM' : 'AM';
