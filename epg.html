@@ -40,15 +40,18 @@
     .then(res => res.json())
     .then(data => {
       const epgBox = document.getElementById("epg-astro-ria");
-
       const now = new Date();
 
+      const today = now.toISOString().slice(0, 10); // format: YYYY-MM-DD
+
       const filtered = data.filter(item => {
-        // Buat date terus dari format + timezone (e.g. 20250621185900 +0800)
         const raw = item.start;
         const iso = `${raw.slice(0, 4)}-${raw.slice(4, 6)}-${raw.slice(6, 8)}T${raw.slice(8, 10)}:${raw.slice(10, 12)}:${raw.slice(12, 14)}${raw.slice(14)}`;
         const epgDate = new Date(iso);
-        return epgDate >= now;
+
+        const epgDay = epgDate.toISOString().slice(0, 10); // same format: YYYY-MM-DD
+
+        return epgDate >= now && epgDay === today;
       });
 
       if (filtered.length === 0) {
