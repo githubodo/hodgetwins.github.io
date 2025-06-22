@@ -43,16 +43,16 @@
 
       const now = new Date();
 
-      // Ambil tarikh hari ini ikut Malaysia GMT+8 (YYYYMMDD)
+      // Format: YYYYMMDD ikut Malaysia
       const todayMY = new Intl.DateTimeFormat('en-GB', {
         timeZone: 'Asia/Kuala_Lumpur',
         year: 'numeric',
         month: '2-digit',
         day: '2-digit'
-      }).format(now).split('/').reverse().join(''); // e.g. "20250622"
+      }).format(now).split('/').reverse().join('');
 
       const filtered = data.filter(item => {
-        const startDate = item.start.slice(0, 8); // "20250622"
+        const startDate = item.start.slice(0, 8);
         return startDate === todayMY;
       });
 
@@ -62,6 +62,15 @@
       }
 
       const html = filtered.map(item => {
+        // Convert start & stop ke Date object
+        const startISO = `${item.start.slice(0,4)}-${item.start.slice(4,6)}-${item.start.slice(6,8)}T${item.start.slice(8,10)}:${item.start.slice(10,12)}:${item.start.slice(12,14)}${item.start.slice(14)}`;
+        const stopISO = `${item.stop.slice(0,4)}-${item.stop.slice(4,6)}-${item.stop.slice(6,8)}T${item.stop.slice(8,10)}:${item.stop.slice(10,12)}:${item.stop.slice(12,14)}${item.stop.slice(14)}`;
+
+        const startTime = new Date(startISO);
+        const stopTime = new Date(stopISO);
+
+        const isNowPlaying = now >= startTime && now < stopTime;
+
         const rawTime = item.start.slice(8, 12); // e.g. "1830"
         const hour = parseInt(rawTime.slice(0, 2));
         const minute = rawTime.slice(2, 4);
@@ -70,9 +79,10 @@
         const formattedTime = `${hour12}:${minute} ${ampm}`;
 
         return `
-          <div class="epg-item">
+          <div class="epg-item${isNowPlaying ? ' now-playing' : ''}">
             <strong>${formattedTime}</strong> - ${item.title}
             <small>${item.desc}</small>
+            ${isNowPlaying ? '<div class="badge">✅ Sedang Bersiaran</div>' : ''}
           </div>
         `;
       }).join('');
