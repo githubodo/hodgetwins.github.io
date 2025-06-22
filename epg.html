@@ -60,7 +60,6 @@
 
       const now = new Date();
 
-      // Format: YYYYMMDD ikut Malaysia
       const todayMY = new Intl.DateTimeFormat('en-GB', {
         timeZone: 'Asia/Kuala_Lumpur',
         year: 'numeric',
@@ -79,16 +78,18 @@
       }
 
       const html = filtered.map(item => {
-        // Convert start & stop ke Date object
-        const startISO = `${item.start.slice(0,4)}-${item.start.slice(4,6)}-${item.start.slice(6,8)}T${item.start.slice(8,10)}:${item.start.slice(10,12)}:${item.start.slice(12,14)}${item.start.slice(14)}`;
-        const stopISO = `${item.stop.slice(0,4)}-${item.stop.slice(4,6)}-${item.stop.slice(6,8)}T${item.stop.slice(8,10)}:${item.stop.slice(10,12)}:${item.stop.slice(12,14)}${item.stop.slice(14)}`;
+        // Betulkan format ISO timezone
+        const fixTZ = (str) => str.replace(/(\d{2})(\d{2})$/, '+$1:$2');
+
+        const startISO = `${item.start.slice(0,4)}-${item.start.slice(4,6)}-${item.start.slice(6,8)}T${item.start.slice(8,10)}:${item.start.slice(10,12)}:${item.start.slice(12,14)}${fixTZ(item.start.slice(14))}`;
+        const stopISO = `${item.stop.slice(0,4)}-${item.stop.slice(4,6)}-${item.stop.slice(6,8)}T${item.stop.slice(8,10)}:${item.stop.slice(10,12)}:${item.stop.slice(12,14)}${fixTZ(item.stop.slice(14))}`;
 
         const startTime = new Date(startISO);
         const stopTime = new Date(stopISO);
 
         const isNowPlaying = now >= startTime && now < stopTime;
 
-        const rawTime = item.start.slice(8, 12); // e.g. "1830"
+        const rawTime = item.start.slice(8, 12);
         const hour = parseInt(rawTime.slice(0, 2));
         const minute = rawTime.slice(2, 4);
         const ampm = hour >= 12 ? 'PM' : 'AM';
