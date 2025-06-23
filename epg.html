@@ -1,6 +1,8 @@
-<!-- ✅ START EPG SECTION WITH TOGGLE -->
+<!-- ✅ START EPG SECTION WITH CENTERED BUTTON -->
 <div id="epg-wrapper" class="epg-box">
-  <button id="load-epg-btn"><center>🔽 Lihat Jadual <a href="https://www.tvmalaysia.live/channel/ria">Astro Ria</a></center></button>
+  <div style="text-align: center;">
+    <button id="load-epg-btn">🔽 Klik Untuk Lihat Jadual <a href="https://www.tvmalaysia.live/channel/ria">Astro Ria</a> Hari Ini</button>
+  </div>
   <div id="epg-astro-ria" style="display:none; margin-top:20px;"></div>
 </div>
 
@@ -13,24 +15,35 @@
     margin-top: 30px;
     font-family: Arial, sans-serif;
   }
+
   #load-epg-btn {
-    background: #0ff;
+    background: linear-gradient(135deg, #00ffe7, #00bcd4);
     color: #000;
     border: none;
-    padding: 10px 20px;
+    padding: 12px 28px;
     font-weight: bold;
     font-size: 1rem;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 255, 255, 0.2);
+    transition: all 0.3s ease;
   }
+
+  #load-epg-btn:hover {
+    background: linear-gradient(135deg, #00bcd4, #00ffe7);
+    transform: scale(1.03);
+  }
+
   .epg-item {
     margin-bottom: 14px;
     padding-bottom: 8px;
     border-bottom: 1px dotted #333;
   }
+
   .epg-item strong {
     color: #ffd700;
   }
+
   .epg-item small {
     display: block;
     color: #ccc;
