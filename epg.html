@@ -1,6 +1,7 @@
-<!-- ✅ START EPG SECTION FOR ASTRO RIA -->
-<div id="epg-astro-ria" class="epg-box">
-  <p>Muatkan jadual rancangan Astro Ria...</p>
+<!-- ✅ START EPG SECTION WITH TOGGLE -->
+<div id="epg-wrapper" class="epg-box">
+  <button id="load-epg-btn">🔽 Lihat Jadual Astro Ria</button>
+  <div id="epg-astro-ria" style="display:none; margin-top:20px;"></div>
 </div>
 
 <style>
@@ -12,12 +13,15 @@
     margin-top: 30px;
     font-family: Arial, sans-serif;
   }
-  .epg-box h3 {
-    font-size: 1.2rem;
-    margin-bottom: 12px;
-    border-bottom: 1px solid #444;
-    padding-bottom: 6px;
-    color: #0ff;
+  #load-epg-btn {
+    background: #0ff;
+    color: #000;
+    border: none;
+    padding: 10px 20px;
+    font-weight: bold;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
   }
   .epg-item {
     margin-bottom: 14px;
@@ -36,54 +40,64 @@
 </style>
 
 <script>
-  fetch("https://sooka.online/?channel=104.astro")
-    .then(res => res.json())
-    .then(data => {
-      const epgBox = document.getElementById("epg-astro-ria");
+  let epgLoaded = false;
 
-      const nowUTC = new Date();
-      const nowMY = new Date(nowUTC.getTime() + (8 * 60 * 60 * 1000)); // Malaysia time
+  document.getElementById("load-epg-btn").addEventListener("click", () => {
+    const epgDiv = document.getElementById("epg-astro-ria");
+    const button = document.getElementById("load-epg-btn");
 
-      const todayMY = nowMY.toISOString().slice(0,10).replace(/-/g, "");
+    if (!epgLoaded) {
+      epgDiv.innerHTML = "<p>Muatkan jadual rancangan...</p>";
+      epgDiv.style.display = "block";
 
-      const filtered = data.filter(item => {
-        const startDate = item.start.slice(0, 8);
-        const year = item.start.slice(0, 4);
-        const month = item.start.slice(4, 6);
-        const day = item.start.slice(6, 8);
-        const hour = item.start.slice(8, 10);
-        const minute = item.start.slice(10, 12);
-        const second = item.start.slice(12, 14);
-        const startTime = new Date(Date.UTC(year, month - 1, day, hour, minute, second) + (8 * 60 * 60 * 1000));
-        return startDate === todayMY && startTime >= nowMY;
-      });
+      fetch("https://epg.tvmalaysia.workers.dev/?channel=104.astro")
+        .then(res => res.json())
+        .then(data => {
+          const nowUTC = new Date();
+          const nowMY = new Date(nowUTC.getTime() + (8 * 60 * 60 * 1000));
+          const todayMY = nowMY.toISOString().slice(0,10).replace(/-/g, "");
 
-      if (filtered.length === 0) {
-        epgBox.innerHTML = "<p>Tiada rancangan akan datang untuk hari ini.</p>";
-        return;
-      }
+          const filtered = data.filter(item => {
+            const year = item.start.slice(0, 4);
+            const month = item.start.slice(4, 6);
+            const day = item.start.slice(6, 8);
+            const hour = item.start.slice(8, 10);
+            const minute = item.start.slice(10, 12);
+            const second = item.start.slice(12, 14);
+            const startTime = new Date(Date.UTC(year, month - 1, day, hour, minute, second) + (8 * 60 * 60 * 1000));
+            return item.start.slice(0, 8) === todayMY && startTime >= nowMY;
+          });
 
-      const html = filtered.map(item => {
-        const rawTime = item.start.slice(8, 12);
-        const hour = parseInt(rawTime.slice(0, 2));
-        const minute = rawTime.slice(2, 4);
-        const ampm = hour >= 12 ? 'PM' : 'AM';
-        const hour12 = hour % 12 === 0 ? 12 : hour % 12;
-        const formattedTime = `${hour12}:${minute} ${ampm}`;
+          if (filtered.length === 0) {
+            epgDiv.innerHTML = "<p>Tiada rancangan akan datang untuk hari ini.</p>";
+            return;
+          }
 
-        return `
-          <div class="epg-item">
-            <strong>${formattedTime}</strong> - ${item.title}
-            <small>${item.desc}</small>
-          </div>
-        `;
-      }).join('');
+          const html = filtered.map(item => {
+            const hour = parseInt(item.start.slice(8, 10));
+            const minute = item.start.slice(10, 12);
+            const ampm = hour >= 12 ? 'PM' : 'AM';
+            const hour12 = hour % 12 === 0 ? 12 : hour % 12;
+            const formattedTime = `${hour12}:${minute} ${ampm}`;
+            return `
+              <div class="epg-item">
+                <strong>${formattedTime}</strong> - ${item.title}
+                <small>${item.desc}</small>
+              </div>
+            `;
+          }).join('');
 
-      epgBox.innerHTML = `<h3>📺 Jadual Rancangan Astro Ria (Hari Ini)</h3>${html}`;
-    })
-    .catch(error => {
-      console.error("EPG Fetch Error:", error);
-      document.getElementById("epg-astro-ria").innerHTML = "<p>Gagal memuatkan jadual rancangan.</p>";
-    });
+          epgDiv.innerHTML = `<h3>📺 Jadual Rancangan Astro Ria (Hari Ini)</h3>${html}`;
+          epgLoaded = true;
+          button.textContent = "🔁 Muat Semula Jadual";
+        })
+        .catch(err => {
+          epgDiv.innerHTML = "<p>Gagal memuatkan jadual rancangan.</p>";
+        });
+    } else {
+      // toggle view
+      epgDiv.style.display = epgDiv.style.display === "none" ? "block" : "none";
+    }
+  });
 </script>
 <!-- ✅ END EPG SECTION -->
