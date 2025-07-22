@@ -168,6 +168,125 @@
     }, 1000);
   };
 </script>
+
+// anti-debug.js
+(function () {
+  const REDIRECT_URL = 'https://www.google.com.my';
+
+  function redirectNow() {
+    try {
+      const video = document.getElementById('video');
+      const main = document.getElementById('main');
+      if (video) video.pause();
+      if (main) main.style.display = 'none';
+    } catch (e) {}
+    window.location.href = REDIRECT_URL;
+  }
+
+  function setFlag() {
+    localStorage.setItem('devtools_opened', '1');
+    sessionStorage.setItem('devtools_opened', '1');
+    window.name = 'devtools_opened';
+  }
+
+  function checkFlag() {
+    if (
+      localStorage.getItem('devtools_opened') === '1' ||
+      sessionStorage.getItem('devtools_opened') === '1' ||
+      window.name === 'devtools_opened'
+    ) {
+      localStorage.removeItem('devtools_opened');
+      sessionStorage.removeItem('devtools_opened');
+      window.name = '';
+      redirectNow();
+    }
+  }
+
+  window.addEventListener('load', checkFlag);
+
+  // Repeat console.debug hijack
+  setInterval(() => {
+    const el = new Image();
+    Object.defineProperty(el, 'id', {
+      get: function () {
+        setFlag();
+        redirectNow();
+      }
+    });
+    console.debug(el);
+  }, 1200);
+
+  // Detect debugger (delay)
+  setInterval(() => {
+    const before = performance.now();
+    debugger;
+    const after = performance.now();
+    if (after - before > 200) {
+      setFlag();
+      redirectNow();
+    }
+  }, 1000);
+
+  // Detect CPU delay (step through)
+  setInterval(() => {
+    const start = performance.now();
+    for (let i = 0; i < 1e6; i++) {}
+    const end = performance.now();
+    if (end - start > 250) {
+      setFlag();
+      redirectNow();
+    }
+  }, 800);
+
+  // Detect window resize from DevTools
+  (function loopCheck() {
+    const threshold = 100;
+    if (
+      window.outerWidth - window.innerWidth > threshold ||
+      window.outerHeight - window.innerHeight > threshold
+    ) {
+      setFlag();
+      redirectNow();
+    }
+    requestAnimationFrame(loopCheck);
+  })();
+
+  // Block right-click
+  document.addEventListener('contextmenu', function (e) {
+    e.preventDefault();
+    alert('🚫 Klik kanan disekat!');
+  });
+
+  // Block DevTools keys
+  document.addEventListener('keydown', function (e) {
+    if (
+      e.keyCode === 123 || // F12
+      (e.ctrlKey && e.shiftKey && [67, 73, 74, 75].includes(e.keyCode)) || // Ctrl+Shift+C/I/J/K
+      (e.ctrlKey && e.keyCode === 85) || // Ctrl+U
+      (e.metaKey && e.altKey && [67, 73].includes(e.keyCode)) // Cmd+Opt+C/I
+    ) {
+      alert('🚫 Akses disekat!');
+      setFlag();
+      redirectNow();
+      return false;
+    }
+  });
+
+  // Safari toString hijack
+  let triggered = false;
+  const oldToString = Function.prototype.toString;
+  Function.prototype.toString = function () {
+    if (!triggered) {
+      triggered = true;
+      setFlag();
+      redirectNow();
+    }
+    return oldToString.apply(this, arguments);
+  };
+})();
+
+</script>
+
 </body>
     <br />
     <center>
