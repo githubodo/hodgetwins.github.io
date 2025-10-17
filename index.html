@@ -87,46 +87,6 @@
     <center>
       <div id="channel-list" aria-live="polite">Loading channel list...</div>
     </center>
-  </main>
-
-  <footer style="text-align: center; margin-top: 20px;">
-    <nav>
-      <a href="https://www.tvmalaysia.live/p/about-us">About Us</a> |
-      <a href="https://www.tvmalaysia.live/p/contact-us">Contact</a> |
-      <a href="https://www.tvmalaysia.live/p/tos">TOS</a> |
-      <a href="https://www.tvmalaysia.live/p/dmca">DMCA</a> |
-      <a href="https://www.tvmalaysia.live/p/privacy-policy">Privacy</a> |
-      <a href="https://www.tvmalaysia.live/p/disclaimer">Disclaimer</a>
-    </nav>
-    <p>©<span id="current-year">2024</span> TV Malaysia Live</p>
-  </footer>
-
-  <script>
-    document.getElementById("current-year").textContent = new Date().getFullYear();
-  </script>
-
-  <!-- ✅ Fetch channel list with cache buster -->
-  <script>
-    function loadChannels() {
-      const bust = Date.now();
-      fetch("https://api.npoint.io/42ec6ec5b5c92e25f36f?v=" + bust, {
-        headers: { Accept: "application/json" }
-      })
-        .then((res) => {
-          if (!res.ok) throw new Error("Network response was not ok");
-          return res.json();
-        })
-        .then((data) => {
-          document.getElementById("channel-list").innerHTML = data.html;
-        })
-        .catch((err) => {
-          console.error("Gagal load senarai channel:", err);
-          document.getElementById("channel-list").innerHTML =
-            `<p>⚠️ Gagal memuatkan saluran. Sila refresh page atau cuba lagi nanti.</p><button onclick="loadChannels()">Cuba Lagi</button>`;
-        });
-    }
-    window.addEventListener("load", loadChannels);
-  </script>
 
 <br/>
 <h1 style="text-align:center;">TV Malaysia Live – Tonton Siaran Langsung TV Malaysia Secara Percuma</h1>
@@ -210,6 +170,46 @@
   <p style="text-align:center; margin-top:40px;">
     <strong>TV Malaysia Live – Hiburan & Informasi Di Hujung Jari Anda!</strong>
   </p>
+  </main>
+
+  <footer style="text-align: center; margin-top: 20px;">
+    <nav>
+      <a href="https://www.tvmalaysia.live/p/about-us">About Us</a> |
+      <a href="https://www.tvmalaysia.live/p/contact-us">Contact</a> |
+      <a href="https://www.tvmalaysia.live/p/tos">TOS</a> |
+      <a href="https://www.tvmalaysia.live/p/dmca">DMCA</a> |
+      <a href="https://www.tvmalaysia.live/p/privacy-policy">Privacy</a> |
+      <a href="https://www.tvmalaysia.live/p/disclaimer">Disclaimer</a>
+    </nav>
+    <p>©<span id="current-year">2024</span> TV Malaysia Live</p>
+  </footer>
+
+  <script>
+    document.getElementById("current-year").textContent = new Date().getFullYear();
+  </script>
+
+  <!-- ✅ Fetch channel list with cache buster -->
+  <script>
+    function loadChannels() {
+      const bust = Date.now();
+      fetch("https://api.npoint.io/42ec6ec5b5c92e25f36f?v=" + bust, {
+        headers: { Accept: "application/json" }
+      })
+        .then((res) => {
+          if (!res.ok) throw new Error("Network response was not ok");
+          return res.json();
+        })
+        .then((data) => {
+          document.getElementById("channel-list").innerHTML = data.html;
+        })
+        .catch((err) => {
+          console.error("Gagal load senarai channel:", err);
+          document.getElementById("channel-list").innerHTML =
+            `<p>⚠️ Gagal memuatkan saluran. Sila refresh page atau cuba lagi nanti.</p><button onclick="loadChannels()">Cuba Lagi</button>`;
+        });
+    }
+    window.addEventListener("load", loadChannels);
+  </script>
 
   <script defer src="/js/anti_copy.js"></script>
   <script src="https://instant.page/5.2.0" type="module" integrity="sha384-jnZyxPjiipYXnSU0ygqeac2q7CVYMbh84q0uHVRRxEtvFPiQYbXWUorga2aqZJ0z"></script>
