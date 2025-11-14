@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Arena Bola | TV Malaysia</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.6/shaka-player.compiled.js"></script>
+
+    <script>
+        // Register service worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(() => console.log('Service Worker registered'));
+        }
+    </script>
+</head>
+
+<body style="margin:0;background:black;">
+    <video id="video" controls autoplay style="width:100%;"></video>
+
+    <script>
+        const player = new shaka.Player(document.getElementById('video'));
+
+        const MPD = "https://l01.dp.sooka.my/5099/linear/index.mpd";
+
+        player.load(MPD).then(() => {
+            console.log("Playing Arena Bola");
+        });
+    </script>
+</body>
+</html>
