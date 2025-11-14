@@ -1,7 +1,7 @@
 importScripts('/config.js'); // Import token safely
 
 // Domain yang Service Worker akan tangkap
-const SOOKA_HOST = "dp.sooka.my";
+const SOOKA_HOST = "sooka.my";
 
 // Event intercept setiap fetch
 self.addEventListener('fetch', event => {
