@@ -7,18 +7,22 @@
 #EXT-X-MEDIA:NAME="may-82",TYPE=AUDIO,LANGUAGE="may",GROUP-ID="audio",CODECS="mp4a.40.5",DEFAULT=NO,AUTOSELECT=YES,URI="https://linearjitp-playback.astro.com.my/hls-mp4-fp/linear/2304/82/video-cif-stream-1.m3u8"
 #EXT-X-MEDIA:NAME="cmn-83",TYPE=AUDIO,LANGUAGE="cmn",GROUP-ID="audio",CODECS="mp4a.40.5",DEFAULT=NO,AUTOSELECT=YES,URI="https://linearjitp-playback.astro.com.my/hls-mp4-fp/linear/2304/83/video-cif-stream-1.m3u8"
 
-# Video
-#EXT-X-STREAM-INF:CODECS="avc1.64002a,mp4a.40.5,ac-3",BANDWIDTH=3500000,RESOLUTION=1920x1080,AUDIO="audio"
+# Subtitle tracks - TAMBAHAN BARU
+#EXT-X-MEDIA:TYPE=SUBTITLES,GROUP-ID="subs",NAME="Malay",DEFAULT=YES,AUTOSELECT=YES,LANGUAGE="ms",URI="https://linearjitp-playback.astro.com.my/dash-wv/linear/2304/subtitle/smptett_frag_bitmap_may_profile_0_video-cif-stream-1.m3u8"
+#EXT-X-MEDIA:TYPE=SUBTITLES,GROUP-ID="subs",NAME="English",DEFAULT=NO,AUTOSELECT=YES,LANGUAGE="eng",URI="https://linearjitp-playback.astro.com.my/dash-wv/linear/2304/subtitle/smptett_frag_bitmap_eng_profile_0_video-cif-stream-1.m3u8"
+
+# Video - TAMBAH SUBTITLES="subs" dalam setiap stream
+#EXT-X-STREAM-INF:CODECS="avc1.64002a,mp4a.40.5,ac-3",BANDWIDTH=3500000,RESOLUTION=1920x1080,AUDIO="audio",SUBTITLES="subs"
 https://linearjitp-playback.astro.com.my/hls-mp4-fp/linear/2304/174/video-cif-stream-6.m3u8
-#EXT-X-STREAM-INF:CODECS="avc1.640029,mp4a.40.5,ac-3",BANDWIDTH=1500000,RESOLUTION=1280x720,AUDIO="audio"
+#EXT-X-STREAM-INF:CODECS="avc1.640029,mp4a.40.5,ac-3",BANDWIDTH=1500000,RESOLUTION=1280x720,AUDIO="audio",SUBTITLES="subs"
 https://linearjitp-playback.astro.com.my/hls-mp4-fp/linear/2304/174/video-cif-stream-5.m3u8
-#EXT-X-STREAM-INF:CODECS="avc1.4d4029,mp4a.40.5,ac-3",BANDWIDTH=960000,RESOLUTION=960x540,AUDIO="audio"
+#EXT-X-STREAM-INF:CODECS="avc1.4d4029,mp4a.40.5,ac-3",BANDWIDTH=960000,RESOLUTION=960x540,AUDIO="audio",SUBTITLES="subs"
 https://linearjitp-playback.astro.com.my/hls-mp4-fp/linear/2304/174/video-cif-stream-4.m3u8
-#EXT-X-STREAM-INF:CODECS="avc1.4d4020,mp4a.40.5,ac-3",BANDWIDTH=800000,RESOLUTION=640x480,AUDIO="audio"
+#EXT-X-STREAM-INF:CODECS="avc1.4d4020,mp4a.40.5,ac-3",BANDWIDTH=800000,RESOLUTION=640x480,AUDIO="audio",SUBTITLES="subs"
 https://linearjitp-playback.astro.com.my/hls-mp4-fp/linear/2304/174/video-cif-stream-3.m3u8
-#EXT-X-STREAM-INF:CODECS="avc1.428016,mp4a.40.5,ac-3",BANDWIDTH=600000,RESOLUTION=480x270,AUDIO="audio"
+#EXT-X-STREAM-INF:CODECS="avc1.428016,mp4a.40.5,ac-3",BANDWIDTH=600000,RESOLUTION=480x270,AUDIO="audio",SUBTITLES="subs"
 https://linearjitp-playback.astro.com.my/hls-mp4-fp/linear/2304/174/video-cif-stream-2.m3u8
-#EXT-X-STREAM-INF:CODECS="avc1.428015,mp4a.40.5,ac-3",BANDWIDTH=360000,RESOLUTION=480x270,AUDIO="audio"
+#EXT-X-STREAM-INF:CODECS="avc1.428015,mp4a.40.5,ac-3",BANDWIDTH=360000,RESOLUTION=480x270,AUDIO="audio",SUBTITLES="subs"
 https://linearjitp-playback.astro.com.my/hls-mp4-fp/linear/2304/174/video-cif-stream-1.m3u8
 
 # I-frame
