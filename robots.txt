@@ -1,4 +1,4 @@
 User-agent: *
-Disallow:
+Disallow: /stream/
 
 Sitemap: https://www.tvmalaysia.live/sitemap.xml
