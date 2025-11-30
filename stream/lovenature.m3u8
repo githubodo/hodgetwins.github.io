@@ -2,7 +2,7 @@
 #EXT-X-VERSION:7
 
 # Audio/subtitles
-#EXT-X-MEDIA:NAME="eng-160",TYPE=AUDIO,LANGUAGE="eng",GROUP-ID="audio",CODECS="mp4a.40.5",DEFAULT=YES,AUTOSELECT=YES,URI="https://linearjitp-playback.astro.com.my/hls-mp4-fp/linear/5096/160/video-cif-stream-1.m3u8"
+#EXT-X-MEDIA:NAME="eng-160",TYPE=AUDIO,LANGUAGE="eng",GROUP-ID="audio",CODECS="mp4a.40.5",DEFAULT=YES,AUTOSELECT=YES,URI="https://linearjitp-playback.astro.com.my/hls-mp4-fp/linear/5096/80/video-cif-stream-1.m3u8"
 #EXT-X-MEDIA:NAME="eng-81",TYPE=AUDIO,LANGUAGE="eng",GROUP-ID="audio",CODECS="ac-3",DEFAULT=NO,AUTOSELECT=YES,URI="https://linearjitp-playback.astro.com.my/hls-mp4-fp/linear/5096/81/video-cif-stream-1.m3u8"
 #EXT-X-MEDIA:NAME="may-82",TYPE=AUDIO,LANGUAGE="may",GROUP-ID="audio",CODECS="mp4a.40.5",DEFAULT=NO,AUTOSELECT=YES,URI="https://linearjitp-playback.astro.com.my/hls-mp4-fp/linear/5096/82/video-cif-stream-1.m3u8"
 #EXT-X-MEDIA:NAME="cmn-83",TYPE=AUDIO,LANGUAGE="cmn",GROUP-ID="audio",CODECS="mp4a.40.5",DEFAULT=NO,AUTOSELECT=YES,URI="https://linearjitp-playback.astro.com.my/hls-mp4-fp/linear/5096/83/video-cif-stream-1.m3u8"
