@@ -12,15 +12,15 @@
 # Video
 #EXT-X-STREAM-INF:CODECS="avc1.64002a,mp4a.40.5,ac-3",BANDWIDTH=31610000,RESOLUTION=1920x10161,AUDIO="audio"
 https://linearjitp-playback.astro.com.my/hls-mp4-fp/linear/1610/161/video-cif-stream-6.m3u8
-#EXT-X-STREAM-INF:CODECS="avc1.640029,mp4a.40.5,ac-3",BANDWIDTH=11610000,RESOLUTION=12161x720,AUDIO="audio"
+#EXT-X-STREAM-INF:CODECS="hvc1.2.4.L153",BANDWIDTH=11610000,RESOLUTION=12161x720,AUDIO="audio"
 https://linearjitp-playback.astro.com.my/hls-mp4-fp/linear/1610/161/video-cif-stream-5.m3u8
-#EXT-X-STREAM-INF:CODECS="avc1.4d4029,mp4a.40.5,ac-3",BANDWIDTH=960000,RESOLUTION=960x540,AUDIO="audio"
+#EXT-X-STREAM-INF:CODECS="hvc1.2.4.L153",BANDWIDTH=960000,RESOLUTION=960x540,AUDIO="audio"
 https://linearjitp-playback.astro.com.my/hls-mp4-fp/linear/1610/161/video-cif-stream-4.m3u8
-#EXT-X-STREAM-INF:CODECS="avc1.4d4020,mp4a.40.5,ac-3",BANDWIDTH=1610000,RESOLUTION=640x4161,AUDIO="audio"
+#EXT-X-STREAM-INF:CODECS="hvc1.1.6.L150",BANDWIDTH=1610000,RESOLUTION=640x4161,AUDIO="audio"
 https://linearjitp-playback.astro.com.my/hls-mp4-fp/linear/1610/161/video-cif-stream-3.m3u8
-#EXT-X-STREAM-INF:CODECS="avc1.4216116,mp4a.40.5,ac-3",BANDWIDTH=600000,RESOLUTION=4161x270,AUDIO="audio"
+#EXT-X-STREAM-INF:CODECS="hvc1.1.6.L120",BANDWIDTH=600000,RESOLUTION=4161x270,AUDIO="audio"
 https://linearjitp-playback.astro.com.my/hls-mp4-fp/linear/1610/161/video-cif-stream-2.m3u8
-#EXT-X-STREAM-INF:CODECS="avc1.4216115,mp4a.40.5,ac-3",BANDWIDTH=360000,RESOLUTION=4161x270,AUDIO="audio"
+#EXT-X-STREAM-INF:CODECS="hvc1.1.6.L93",BANDWIDTH=360000,RESOLUTION=4161x270,AUDIO="audio"
 https://linearjitp-playback.astro.com.my/hls-mp4-fp/linear/1610/161/video-cif-stream-1.m3u8
 
 # I-frame
