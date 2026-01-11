@@ -3,27 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>YT Background Sound Control</title>
+<title>YT Background Sound</title>
 
 <script src="../dist/yt-video-background.min.js"></script>
 
 <style>
-body {
+html, body {
     margin: 0;
+    padding: 0;
     background: #000;
     overflow: hidden;
 }
 
-/* Content */
-main {
-    position: relative;
-    z-index: 2;
-    color: #fff;
-    text-align: center;
-    padding-top: 40vh;
-}
-
-/* Speaker Button (CENTER) */
+/* SOUND OVERLAY */
 #soundOverlay {
     position: fixed;
     inset: 0;
@@ -34,31 +26,48 @@ main {
     background: rgba(0,0,0,0.35);
 }
 
+/* SPEAKER BUTTON */
 #soundBtn {
-    width: 90px;
-    height: 90px;
+    width: 96px;
+    height: 96px;
     border-radius: 50%;
     border: none;
-    background: rgba(0,0,0,0.75);
+    background: rgba(0,0,0,0.8);
     color: #fff;
-    font-size: 38px;
+    font-size: 40px;
     cursor: pointer;
-    transition: transform 0.2s, background 0.2s;
+    position: relative;
 }
 
-#soundBtn:hover {
-    background: rgba(0,0,0,0.9);
-    transform: scale(1.08);
+/* RIPPLE ANIMATION */
+#soundBtn::before,
+#soundBtn::after {
+    content: '';
+    position: absolute;
+    inset: -12px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.4);
+    animation: ripple 2.5s infinite;
+}
+
+#soundBtn::after {
+    animation-delay: 1.25s;
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(0.7);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1.5);
+        opacity: 0;
+    }
 }
 </style>
 </head>
 
 <body>
-
-<main>
-    <h1>Welcome</h1>
-    <p>Enjoy the experience</p>
-</main>
 
 <!-- SOUND OVERLAY -->
 <div id="soundOverlay">
@@ -68,11 +77,14 @@ main {
 <script>
 const SOUND_KEY = 'yt_bg_sound_enabled';
 
-// Init background video
+// Detect mobile
+const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+// Init YT background
 const bg = new YTVideoBackground({
     videoId: 'cl85gRrqbxo',
     autoplay: true,
-    mute: true,
+    mute: true, // wajib untuk autoplay
     loop: true,
     playbackQuality: 'hd1080',
 });
@@ -80,28 +92,40 @@ const bg = new YTVideoBackground({
 const overlay = document.getElementById('soundOverlay');
 const btn = document.getElementById('soundBtn');
 
-// If sound already enabled before
-if (localStorage.getItem(SOUND_KEY) === 'true') {
-    overlay.style.display = 'none';
+// Enable sound function
+function enableSound() {
+    if (!bg.player) return;
 
-    // Tunggu player ready
-    const checkReady = setInterval(() => {
-        if (bg.player && bg.player.unMute) {
-            bg.player.unMute();
-            bg.player.setVolume(100);
-            clearInterval(checkReady);
-        }
-    }, 300);
-}
-
-// Click to enable sound
-btn.addEventListener('click', () => {
     bg.player.unMute();
     bg.player.setVolume(100);
 
     localStorage.setItem(SOUND_KEY, 'true');
     overlay.style.display = 'none';
-});
+
+    // Remove mobile tap listener
+    document.removeEventListener('click', enableSound);
+}
+
+// Auto enable if user enabled before
+if (localStorage.getItem(SOUND_KEY) === 'true') {
+    overlay.style.display = 'none';
+
+    const waitPlayer = setInterval(() => {
+        if (bg.player && bg.player.unMute) {
+            bg.player.unMute();
+            bg.player.setVolume(100);
+            clearInterval(waitPlayer);
+        }
+    }, 300);
+} else {
+    // Desktop: click speaker
+    btn.addEventListener('click', enableSound);
+
+    // Mobile: tap anywhere
+    if (isMobile) {
+        document.addEventListener('click', enableSound, { once: true });
+    }
+}
 </script>
 
 </body>
