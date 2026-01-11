@@ -3,37 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Background Example</title>
+    <title>YT Video Background with Sound Button</title>
+
     <script src="../dist/yt-video-background.min.js"></script>
+
     <style>
         body {
-            background-color: #000;
+            margin: 0;
+            background: #000;
         }
+
         main {
             position: relative;
-            z-index: 1
+            z-index: 2;
+            color: white;
+            text-align: center;
+            padding-top: 40vh;
+        }
+
+        #soundBtn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            padding: 12px 18px;
+            border: none;
+            border-radius: 30px;
+            background: rgba(0,0,0,0.6);
+            color: #fff;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        #soundBtn:hover {
+            background: rgba(0,0,0,0.8);
         }
     </style>
 </head>
-<body style="background: #000">
+<body>
+
     <main>
-        <!-- Your content here -->
+        <h1>Welcome</h1>
+        <p>Click button to enable sound</p>
     </main>
+
+    <button id="soundBtn">🔊 Enable Sound</button>
+
     <script>
-        const background = new YTVideoBackground({
+        const bg = new YTVideoBackground({
             videoId: 'cl85gRrqbxo',
-            autoplay: false,
-            mute: false,
+            autoplay: true,
+            mute: true, // WAJIB autoplay
             loop: true,
-            aspectRatio: '16:9',
-aspectRatio: '16:9',
-  playbackQuality: 'hd1080',
-            style: {
-                video: {
-                    opacity: 1,
-                },
-            },
+            playbackQuality: 'hd1080',
+        });
+
+        const btn = document.getElementById('soundBtn');
+
+        btn.addEventListener('click', () => {
+            bg.player.unMute();
+            bg.player.setVolume(100);
+            btn.style.display = 'none'; // hide button lepas klik
         });
     </script>
+
 </body>
 </html>
