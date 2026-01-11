@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Background Example</title>
+    <script src="../dist/yt-video-background.min.js"></script>
+    <style>
+        body {
+            background-color: #000;
+        }
+        main {
+            position: relative;
+            z-index: 1
+        }
+    </style>
+</head>
+<body style="background: #000">
+    <main>
+        <!-- Your content here -->
+    </main>
+    <script>
+        const background = new YTVideoBackground({
+            videoId: '278IRQ6HSi4',
+            autoplay: true,
+            mute: false,
+            loop: true,
+            aspectRatio: '16:9',
+aspectRatio: '16:9',
+  playbackQuality: 'hd1080',
+            style: {
+                video: {
+                    opacity: 1,
+                },
+            },
+        });
+    </script>
+</body>
+</html>
