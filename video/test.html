@@ -1,71 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YT Video Background with Sound Button</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YT Background Sound Control</title>
 
-    <script src="../dist/yt-video-background.min.js"></script>
+<script src="../dist/yt-video-background.min.js"></script>
 
-    <style>
-        body {
-            margin: 0;
-            background: #000;
-        }
+<style>
+body {
+    margin: 0;
+    background: #000;
+    overflow: hidden;
+}
 
-        main {
-            position: relative;
-            z-index: 2;
-            color: white;
-            text-align: center;
-            padding-top: 40vh;
-        }
+/* Content */
+main {
+    position: relative;
+    z-index: 2;
+    color: #fff;
+    text-align: center;
+    padding-top: 40vh;
+}
 
-        #soundBtn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 9999;
-            padding: 12px 18px;
-            border: none;
-            border-radius: 30px;
-            background: rgba(0,0,0,0.6);
-            color: #fff;
-            cursor: pointer;
-            font-size: 14px;
-        }
+/* Speaker Button (CENTER) */
+#soundOverlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.35);
+}
 
-        #soundBtn:hover {
-            background: rgba(0,0,0,0.8);
-        }
-    </style>
+#soundBtn {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0,0,0,0.75);
+    color: #fff;
+    font-size: 38px;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+}
+
+#soundBtn:hover {
+    background: rgba(0,0,0,0.9);
+    transform: scale(1.08);
+}
+</style>
 </head>
+
 <body>
 
-    <main>
-        <h1>Welcome</h1>
-        <p>Click button to enable sound</p>
-    </main>
+<main>
+    <h1>Welcome</h1>
+    <p>Enjoy the experience</p>
+</main>
 
-    <button id="soundBtn">🔊 Enable Sound</button>
+<!-- SOUND OVERLAY -->
+<div id="soundOverlay">
+    <button id="soundBtn">🔊</button>
+</div>
 
-    <script>
-        const bg = new YTVideoBackground({
-            videoId: 'cl85gRrqbxo',
-            autoplay: true,
-            mute: true, // WAJIB autoplay
-            loop: true,
-            playbackQuality: 'hd1080',
-        });
+<script>
+const SOUND_KEY = 'yt_bg_sound_enabled';
 
-        const btn = document.getElementById('soundBtn');
+// Init background video
+const bg = new YTVideoBackground({
+    videoId: 'cl85gRrqbxo',
+    autoplay: true,
+    mute: true,
+    loop: true,
+    playbackQuality: 'hd1080',
+});
 
-        btn.addEventListener('click', () => {
+const overlay = document.getElementById('soundOverlay');
+const btn = document.getElementById('soundBtn');
+
+// If sound already enabled before
+if (localStorage.getItem(SOUND_KEY) === 'true') {
+    overlay.style.display = 'none';
+
+    // Tunggu player ready
+    const checkReady = setInterval(() => {
+        if (bg.player && bg.player.unMute) {
             bg.player.unMute();
             bg.player.setVolume(100);
-            btn.style.display = 'none'; // hide button lepas klik
-        });
-    </script>
+            clearInterval(checkReady);
+        }
+    }, 300);
+}
+
+// Click to enable sound
+btn.addEventListener('click', () => {
+    bg.player.unMute();
+    bg.player.setVolume(100);
+
+    localStorage.setItem(SOUND_KEY, 'true');
+    overlay.style.display = 'none';
+});
+</script>
 
 </body>
 </html>
