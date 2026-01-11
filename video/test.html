@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>YT Video Background</title>
+<title>YouTube Background</title>
 
 <script src="../dist/yt-video-background.min.js"></script>
 
@@ -23,11 +23,11 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0,0,0,0.35);
+    background: rgba(0,0,0,0.4);
     cursor: pointer;
 }
 
-/* SPEAKER BUTTON */
+/* SPEAKER */
 #soundBtn {
     width: 96px;
     height: 96px;
@@ -40,7 +40,7 @@ html, body {
     position: relative;
 }
 
-/* RIPPLE EFFECT */
+/* RIPPLE */
 #soundBtn::before,
 #soundBtn::after {
     content: '';
@@ -50,82 +50,61 @@ html, body {
     border: 2px solid rgba(255,255,255,0.4);
     animation: ripple 2.5s infinite;
 }
-
 #soundBtn::after {
     animation-delay: 1.25s;
 }
 
 @keyframes ripple {
-    0% {
-        transform: scale(0.7);
-        opacity: 1;
-    }
-    100% {
-        transform: scale(1.6);
-        opacity: 0;
-    }
+    0% { transform: scale(0.7); opacity: 1; }
+    100% { transform: scale(1.6); opacity: 0; }
 }
 </style>
 </head>
 
 <body>
 
-<!-- SOUND OVERLAY -->
+<!-- OVERLAY -->
 <div id="soundOverlay">
     <button id="soundBtn">▶️🔊</button>
 </div>
 
 <script>
-const SOUND_KEY = 'yt_bg_sound_enabled';
-
-// Detect mobile & Opera
 const ua = navigator.userAgent;
 const isMobile = /Android|iPhone|iPad|iPod/i.test(ua);
-const isOpera = /OPR|Opera/i.test(ua);
 
-// Init YT background
+// INIT YT BACKGROUND
 const bg = new YTVideoBackground({
     videoId: 'cl85gRrqbxo',
-    autoplay: true,
-    mute: true,          // wajib
+    autoplay: !isMobile,   // desktop sahaja
+    mute: true,
     loop: true,
     playbackQuality: 'hd1080',
     playerVars: {
-        playsinline: 1   // penting untuk mobile
+        playsinline: 1
     }
 });
 
 const overlay = document.getElementById('soundOverlay');
 
-// Enable sound + play (Opera-safe)
-function enableSound() {
+// ENABLE PLAY + SOUND (WAJIB USER TAP)
+function enablePlayback() {
     if (!bg.player) return;
 
-    bg.player.playVideo();   // <-- PENTING UNTUK OPERA MOBILE
+    bg.player.playVideo();   // PENTING
     bg.player.unMute();
     bg.player.setVolume(100);
 
-    localStorage.setItem(SOUND_KEY, 'true');
     overlay.style.display = 'none';
-
-    document.removeEventListener('click', enableSound);
+    document.removeEventListener('click', enablePlayback);
 }
 
-// Jika pernah enable sebelum
-if (localStorage.getItem(SOUND_KEY) === 'true') {
-    overlay.style.display = 'none';
-
-    const waitPlayer = setInterval(() => {
-        if (bg.player && bg.player.playVideo) {
-            bg.player.playVideo();
-            bg.player.unMute();
-            bg.player.setVolume(100);
-            clearInterval(waitPlayer);
-        }
-    }, 300);
-} else {
-    // Desktop & Mobile → tap anywhere
-    document.addEventListener('click', enableSound, { once: true });
+// MOBILE: TAP REQUIRED
+if (isMobile) {
+    document.addEventListener('click', enablePlayback, { once: true });
+} 
+// DESKTOP: SOUND OPTIONAL
+else {
+    document.addEventListener('click', enablePlayback, { once: true });
 }
 </script>
 
